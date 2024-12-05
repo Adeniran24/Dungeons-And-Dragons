@@ -1,0 +1,89 @@
+.footer {
+    background-color: rgb(155, 88, 34);
+    color: #ffffff;
+    border-top: 2px solid rgb(155, 88, 34);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #141414;
+    color: #00ffcc;
+    text-align: center;
+    margin: 0;
+    position: relative;
+}
+
+.img-thumbnail {
+    height: 300px;
+    width: 375px;
+}
+
+a {
+    color: rgb(155, 88, 34);
+    text-decoration: none;
+}
+
+.navbar {
+    background-color: rgb(155, 88, 34);
+    border-bottom: 2px solid rgb(155, 88, 34);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: #00ffcc;
+}
+
+.navbar-brand:hover {
+    text-shadow: 0 0 8px #00ffcc;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgb(155, 88, 34);
+    text-shadow: 0 0 8px rgb(155, 88, 34);
+}
+
+.btn-primary, .btn-outline-success, .btn-outline-warning, .img-thumbnail {
+    background-color: #00ffcc;
+    border: none;
+    color: #2b2b2b;
+    font-weight: bold;
+    box-shadow: 0 0 10px #00ffcc71, inset 0 0 5px #00ffcc71;
+}
+
+.btn-primary:hover, .btn-outline-success:hover, .btn-outline-warning:hover, .img-thumbnail:hover {
+    background-color: rgb(155, 88, 34);
+    color: #2b2b2b;
+}
+
+.form-control {
+    background-color: #1a1a1a;
+    color: #00ffcc;
+    border: 2px solid #00ffcc;
+    box-shadow: 0 0 5px #00ffcc;
+}
+
+
+img {
+    border: 4px solid #00ffcc;
+    box-shadow: 0 0 10px #00ffcc71;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+.container {
+    margin-top: 1%;
+}
