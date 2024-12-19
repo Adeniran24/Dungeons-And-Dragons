@@ -1,3 +1,41 @@
+<?php
+include 'connect.php';
+
+// Ha a formot elküldik
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $race = $_POST['race'];
+    $strength = $_POST['strength'];
+    $dexterity = $_POST['dexterity'];
+    $constitution = $_POST['constitution'];
+    $intelligence = $_POST['intelligence'];
+    $wisdom = $_POST['wisdom'];
+    $charisma = $_POST['charisma'];
+    $level = $_POST['level'];
+    $class = $_POST['class'];
+
+    // Az SQL lekérdezés a karakter hozzáadásához
+    $sql = "INSERT INTO characters (Name, Race, Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, Level, Class)
+            VALUES ('$name', '$race', $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma, $level, '$class')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "New character created successfully!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,6 +81,7 @@
           </div>
         </div>
       </nav>
+<<<<<<< Updated upstream
    
 
 
@@ -53,5 +92,45 @@
         <span class="">Đ&Đ Ultimate Tools</span>
       </div>
     </footer>
+=======
+
+      <h2>Új karakter létrehozása</h2>
+    <form method="POST" action="">
+        <label for="name">Név:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="race">Faj:</label><br>
+        <input type="text" id="race" name="race" required><br><br>
+
+        <label for="strength">Erő:</label><br>
+        <input type="number" id="strength" name="strength" required><br><br>
+
+        <label for="dexterity">Ügyesség:</label><br>
+        <input type="number" id="dexterity" name="dexterity" required><br><br>
+
+        <label for="constitution">Kitartás:</label><br>
+        <input type="number" id="constitution" name="constitution" required><br><br>
+
+        <label for="intelligence">Intelligencia:</label><br>
+        <input type="number" id="intelligence" name="intelligence" required><br><br>
+
+        <label for="wisdom">Bölcsesség:</label><br>
+        <input type="number" id="wisdom" name="wisdom" required><br><br>
+
+        <label for="charisma">Karizma:</label><br>
+        <input type="number" id="charisma" name="charisma" required><br><br>
+
+        <label for="level">Szint:</label><br>
+        <input type="number" id="level" name="level" required><br><br>
+
+        <label for="class">Osztály:</label><br>
+        <input type="text" id="class" name="class" required><br><br>
+
+        <button type="submit">Karakter hozzáadása</button>
+    </form>
+
+
+      
+>>>>>>> Stashed changes
 </body>
 </html>

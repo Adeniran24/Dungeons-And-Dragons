@@ -26,12 +26,13 @@
     </form>
 
     <?php
+    session_start();
     include 'connect.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
-        $password = $_POST['password'];
-
+        $password = md5($_POST['password']);
+        echo $password;
         // Database connection
         
 
@@ -49,8 +50,11 @@
 
         if ($result->num_rows > 0) {
             echo "Login successful!";
+            header ("Location:index.php")
             // Redirect to another page or start a session
-        } else {
+        } 
+        else 
+        {
             echo "Invalid username or password.";
         }
 

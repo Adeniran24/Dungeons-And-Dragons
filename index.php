@@ -1,3 +1,12 @@
+<?php
+session_start(); // Szesszió indítása
+
+// Ellenőrizd, hogy a felhasználó be van-e jelentkezve
+$is_logged_in = isset($_SESSION['user_id']);
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +23,7 @@
 </head>
 <body>
 
+<<<<<<< Updated upstream
     <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
@@ -21,10 +31,17 @@
 </a>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+=======
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black;">D&D Ultimate Tool</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+>>>>>>> Stashed changes
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<<<<<<< Updated upstream
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="character.php">Characters</a>
               </li>
@@ -35,16 +52,33 @@
                 <a class="nav-link active" aria-current="page" href="dmTools.php">DM Tools</a>
               </li>
               
+=======
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="character.php">Characters</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="wiki.php">Wiki</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="dmTools">DM Tools</a>
+                </li>
+>>>>>>> Stashed changes
             </ul>
-            <form class="d-flex" >
-              <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
-              <a style="display: none;" id="Logged" href="profil.html">
-                <img class="profKep" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
-              </a>
+            <form class="d-flex">
+                <?php if ($is_logged_in): ?>
+                    <!-- Ha be van jelentkezve a felhasználó, a profil gomb jelenik meg -->
+                    <a style="display: block;" id="Logged" href="profil.php">
+                        <img class="profKep" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
+                    </a>
+                <?php else: ?>
+                    <!-- Ha nincs bejelentkezve, akkor a Login/Register gomb jelenik meg -->
+                    <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
+                <?php endif; ?>
             </form>
-          </div>
         </div>
-      </nav>
+    </div>
+</nav>
+
 
     <main>
         <h1>Welcome to the D&D Website</h1>

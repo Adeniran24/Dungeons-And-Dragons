@@ -38,12 +38,12 @@
     </div>
     <?php
     
-    <?php
+    
 include 'connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $password = md5($_POST['password']);
     $email = $_POST['email'];
 
     $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
@@ -60,6 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
 }
 ?>
-    ?>
+    
 </body>
 </html>
