@@ -16,7 +16,10 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0);background-color: black;;">D&D Ultimate Tool</a>
+        <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
+    D&D Ultimate Tool
+</a>
+
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -29,7 +32,7 @@
                 <a class="nav-link active" aria-current="page" href="wiki.php">Wiki</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="dmTools">DM Tools</a>
+                <a class="nav-link active" aria-current="page" href="dmTools.php">DM Tools</a>
               </li>
               
             </ul>
@@ -49,55 +52,54 @@
     </main>
 
 
-
     <div class="slideshow-container">
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Weapons</h3></div>
+        </a>
+    </div>
+    
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Stories</h3></div>
+        </a>
+    </div>
+    
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Maps</h3></div>
+        </a>
+    </div>
+    
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Enemies</h3></div>
+        </a>
+    </div>
+    
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Races</h3></div>
+        </a>
+    </div>
+</div>
 
-      <div class="mySlides fade">
-        <a href="">
-          <img src="/img/cucima.png" style="width:100%">
-          <div class="text"><h3>Custom Weapons</h3></div>
-        </a>
-      </div>
-      
-      <div class="mySlides fade">
-        <a href="">
-          <img src="/img/cucima.png" style="width:100%">
-          <div class="text"><h3>Custom Stories</h3></div>
-        </a>
-      </div>
-      
-      <div class="mySlides fade">
-        <a href="">
-          <img src="/img/cucima.png" style="width:100%">
-          <div class="text"><h3>Custom Maps</h3></div>
-        </a>
-      </div>
-      
-      <div class="mySlides fade">
-        <a href="">
-          <img src="/img/cucima.png" style="width:100%">
-          <div class="text"><h3>Custom Enemies</h3></div>
-        </a>
-      </div>
-      
-      <div class="mySlides fade">
-        <a href="">
-          <img src="/img/cucima.png" style="width:100%">
-          <div class="text"><h3>Custom Races</h3></div>
-        </a>
-      </div>
-      
-      </div>
-      <br>
-      
-      <div style="text-align:center">
-        <span class="dot"></span> 
-        <span class="dot"></span> 
-        <span class="dot"></span> 
-        <span class="dot"></span> 
-        <span class="dot"></span> 
-      </div>
-      
+<br>
+
+<div style="text-align:center">
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+</div>
+
+
 
 
 

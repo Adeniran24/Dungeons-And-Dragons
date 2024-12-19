@@ -1,114 +1,136 @@
-.footer {
-    background-color: rgb(155, 88, 34);
-    color: #ffffff;
-    border-top: 2px solid rgb(155, 88, 34);
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-}
+/* Font adjustment for medieval style */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
 
-
-
-/*IDK hátha hasznos*/
 body {
-    font-family: 'Press Start 2P', cursive;
-    background-color: #141414;
-    color: #00ffcc;
+    font-family: 'Cinzel', serif; /* Change to medieval font */
+    background-color: #2b2b2b; /* Darkened background for more medieval tone */
+    color: #d4af37; /* Gold-like text color for an antique feel */
     text-align: center;
     margin: 0;
     position: relative;
 }
 
-.img-thumbnail {
-    height: 25%;
-    width: 375px;
-}
-
-a {
-    color: rgb(155, 88, 34);
-    text-decoration: none;
-}
-
-.navbar {
+/* Footer with medieval style */
+.footer {
     background-color: rgb(155, 88, 34);
-    border-bottom: 2px solid rgb(155, 88, 34);
+    color: #ffffff;
+    border-top: 4px solid #d4af37; /* Gold border for a medieval touch */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+
+
+/* Buttons with medieval vibe */
+.btn-primary, .btn-outline-success, .btn-outline-warning, .img-thumbnail {
+    background-color: #d4af37; /* Gold color for buttons */
+    border: 2px solid #d4af37;
+    color: #2b2b2b;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8), inset 0 0 5px rgba(212, 175, 55, 0.8); /* Soft gold glow */
+}
+
+.btn-primary:hover, .btn-outline-success:hover, .btn-outline-warning:hover, .img-thumbnail:hover {
+    background-color: #a36e34; /* Darker gold/brown on hover */
+    color: #2b2b2b;
+    box-shadow: 0 0 15px rgba(163, 110, 52, 0.8), inset 0 0 5px rgba(163, 110, 52, 0.8); /* Hover shadow effect */
+}
+
+/* Form controls with a medieval look */
+.form-control {
+    background-color: #3a3a3a; /* Dark, stone-like background */
+    color: #d4af37; /* Gold text for contrast */
+    border: 2px solid #d4af37; /* Gold borders */
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.8); /* Soft glow around inputs */
+}
+
+/* Links with a scroll effect */
+a {
+    color: rgb(155, 88, 34); /* Golden brown color for medieval appearance */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-shadow: 0 0 8px #d4af37; /* Gold glow on hover */
+}
+
+/* Navbar with a medieval theme */
+.navbar {
+    background-color: rgb(155, 88, 34); /* Dark wood color */
+    border-bottom: 2px solid #d4af37; /* Gold accent */
 }
 
 .navbar-brand {
     font-size: 1.5rem;
-    color: #00ffcc;
-}
-
-.navbar-brand:hover {
-    text-shadow: 0 0 8px #00ffcc;
+    color: #d4af37;
+    text-shadow: 0 0 5px #d4af37; /* Gold glow for logo */
 }
 
 .navbar-nav .nav-link {
     color: #ffffff;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Larger font for a more prominent appearance */
 }
 
 .navbar-nav .nav-link:hover {
-    color: rgb(155, 88, 34);
-    text-shadow: 0 0 8px rgb(155, 88, 34);
+    color: #d4af37; /* Gold hover color */
+    text-shadow: 0 0 8px #d4af37; /* Gold shadow effect */
 }
 
-.btn-primary, .btn-outline-success, .btn-outline-warning, .img-thumbnail {
-    background-color: #00ffcc;
-    border: none;
-    color: #2b2b2b;
-    font-weight: bold;
-    box-shadow: 0 0 10px #00ffcc71, inset 0 0 5px #00ffcc71;
-}
-
-.btn-primary:hover, .btn-outline-success:hover, .btn-outline-warning:hover, .img-thumbnail:hover {
-    background-color: rgb(155, 88, 34);
-    color: #2b2b2b;
-}
-
-.form-control {
-    background-color: #1a1a1a;
-    color: #00ffcc;
-    border: 2px solid #00ffcc;
-    box-shadow: 0 0 5px #00ffcc;
-}
-
-
+/* Image borders with medieval styling */
 img {
-    border: 4px solid rgb(155, 88, 34);
-    box-shadow: 0 0 10px rgba(155, 88, 34, 0.5);
+    border: 4px solid #d4af37; /* Gold border */
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7); /* Glowing gold shadow */
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-
-.container {
-    margin-top: 1%;
+img:hover {
+    transform: scale(1.05); /* Slight scale-up effect for hover */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 1); /* Stronger glow on hover */
 }
 
+/* Caption styles for medieval appearance */
+.text {
+    color: #d4af37; /* Golden text */
+    font-size: 18px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0 0 5px #d4af37; /* Gold text-shadow */
+}
 
-
-
-
-
-
-
-
-
-/* Slideshow container */
+/* Slideshow container adjustments */
 .slideshow-container {
   max-width: 50%;
-  max-height: 20%;
+  max-height: 30%;
   position: relative;
   margin: auto;
+  border: 5px solid #d4af37; /* Gold border to match the medieval theme */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6); /* Dark shadow for a dramatic effect */
+  padding: 10px;
+  background-color: #1a1a1a; /* Dark background */
 }
 
-/* Caption text */
+/* Style for each slide */
+.mySlides {
+  display: none; /* Hide all slides initially */
+  opacity: 0; /* Hide the slide by default */
+  transition: opacity 1s ease-in-out; /* Smooth fade-in effect */
+}
+
+/* Text inside slides */
 .text {
-  color: #f2f2f2;
-  font-size: 15px;
+  color: #d4af37;
+  font-size: 20px;
   padding: 8px 12px;
   position: absolute;
   bottom: 8px;
@@ -116,16 +138,7 @@ img {
   text-align: center;
 }
 
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-
-/* The dots/bullets/indicators */
+/* Dot style */
 .dot {
   height: 15px;
   width: 15px;
@@ -142,16 +155,9 @@ img {
 
 /* Fading animation */
 .fade {
-  animation-name: fade;
-  animation-duration: 1.5s;
+  opacity: 1 !important; /* Make the current slide visible */
 }
 
-@keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-
-/* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
-  .text {font-size: 11px}
+  .text {font-size: 14px;} /* Adjust font size for smaller screens */
 }

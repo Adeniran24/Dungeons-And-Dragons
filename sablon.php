@@ -18,7 +18,9 @@
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
     D&D Ultimate Tool
-</a>          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+</a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,7 +32,7 @@
                 <a class="nav-link active" aria-current="page" href="wiki.php">Wiki</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="dmTools.php">DM Tools</a>
+                <a class="nav-link active" aria-current="page" href="dmTools">DM Tools</a>
               </li>
               
             </ul>
@@ -43,6 +45,30 @@
           </div>
         </div>
       </nav>
-      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer mt-auto py-3 ">
+      <div class="container">
+        <span class="">Đ&Đ Ultimate Tools</span>
+      </div>
+    </footer>
 </body>
 </html>
