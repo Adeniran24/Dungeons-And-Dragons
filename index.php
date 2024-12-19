@@ -2,7 +2,11 @@
 session_start(); // Szesszió indítása
 
 // Ellenőrizd, hogy a felhasználó be van-e jelentkezve
-$is_logged_in = isset($_SESSION['user_id']);
+$if (!isset($_SESSION['token'])) {
+    header ("Location:login.php")
+}
+
+
 ?>
 
 

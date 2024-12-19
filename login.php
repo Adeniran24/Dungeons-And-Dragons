@@ -69,17 +69,14 @@
     session_start();
     include 'connect.php';
 
+
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
+       
         echo $password;
-        // Database connection
-        
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
+       
         // Prepare and bind
         $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
         $stmt->bind_param("ss", $username, $password);
@@ -89,6 +86,12 @@
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
+
+            $token = bin2hex(random_bytes(32));
+            setcookie('auth_token', $token, time() + 3600, '/', '', true, true); // 1 órára beállítva
+            $_SESSION['token'] = token;    
+                      
+
             echo "Login successful!";
             header ("Location:index.php");
             // Redirect to another page or start a session
