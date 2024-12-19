@@ -23,7 +23,6 @@ $is_logged_in = isset($_SESSION['user_id']);
 </head>
 <body>
 
-<<<<<<< Updated upstream
     <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
@@ -31,17 +30,11 @@ $is_logged_in = isset($_SESSION['user_id']);
 </a>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-=======
-<nav class="navbar navbar-expand-lg navbar-dark ">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black;">D&D Ultimate Tool</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
->>>>>>> Stashed changes
+
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-<<<<<<< Updated upstream
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="character.php">Characters</a>
               </li>
@@ -51,18 +44,7 @@ $is_logged_in = isset($_SESSION['user_id']);
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="dmTools.php">DM Tools</a>
               </li>
-              
-=======
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="character.php">Characters</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="wiki.php">Wiki</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="dmTools">DM Tools</a>
-                </li>
->>>>>>> Stashed changes
+
             </ul>
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>

@@ -52,7 +52,7 @@
             echo "Login successful!";
             header ("Location:index.php")
             // Redirect to another page or start a session
-        } 
+        }
         else 
         {
             echo "Invalid username or password.";
