@@ -161,3 +161,90 @@ img:hover {
 @media only screen and (max-width: 300px) {
   .text {font-size: 14px;} /* Adjust font size for smaller screens */
 }
+
+
+/*A form stílusa*/
+
+
+/* Form container */
+#authForm {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(155, 88, 34, 0.75);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form title */
+.form-title {
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input fields */
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.btn-primary {
+  background-color: #ff0000;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #d40000;
+}
+
+/* Links */
+.recover a {
+  text-decoration: none;
+  color: #ffc400;
+}
+
+.recover a:hover {
+  text-decoration: underline;
+}
+.valtas a {
+  text-decoration: none;
+  color: #ff00c3;
+}
+
+.valtas a:hover {
+  text-decoration: underline;
+}
+/* Or section */
+.or {
+  text-align: center;
+  color: #000000;
+  font-size: 14px;
+}
+
+/* Responsiveness for mobile devices */
+@media (max-width: 576px) {
+  #authForm {
+      padding: 15px;
+  }
+
+  .input-group {
+      margin-bottom: 1rem;
+  }
+}
