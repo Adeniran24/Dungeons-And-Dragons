@@ -50,7 +50,7 @@
 
         if ($result->num_rows > 0) {
             echo "Login successful!";
-            header ("Location:index.php")
+            header ("Location:index.php");
             // Redirect to another page or start a session
         }
         else 

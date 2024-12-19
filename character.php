@@ -81,18 +81,6 @@ $conn->close();
           </div>
         </div>
       </nav>
-<<<<<<< Updated upstream
-   
-
-
-
-
-      <footer class="footer mt-auto py-3 ">
-      <div class="container">
-        <span class="">Đ&Đ Ultimate Tools</span>
-      </div>
-    </footer>
-=======
 
       <h2>Új karakter létrehozása</h2>
     <form method="POST" action="">
@@ -130,7 +118,13 @@ $conn->close();
     </form>
 
 
-      
->>>>>>> Stashed changes
+    
+
+
+<footer class="footer mt-auto py-3 ">
+      <div class="container">
+        <span class="">Đ&Đ Ultimate Tools</span>
+      </div>
+    </footer>
 </body>
 </html>
