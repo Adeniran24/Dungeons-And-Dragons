@@ -248,3 +248,15 @@ img:hover {
       margin-bottom: 1rem;
   }
 }
+
+
+
+
+
+#profkep {
+  width: 70px;             /* Kép szélessége */
+  height: 70px;            /* Kép magassága */
+  border-radius: 50%;       /* Kerekítés */
+  object-fit: cover;        /* Kép illeszkedése */
+  border: 2px solid #ccc;   /* Kép körüli keret */
+}
