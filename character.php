@@ -1,6 +1,10 @@
 <?php
 include 'connect.php';
 
+//Ha nincs bejelentkezve, akkor a login.php oldalra irányítjuk
+
+
+
 // Ha a formot elküldik
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
@@ -29,16 +33,7 @@ $conn->close();
 ?>
 
 
-<?php
-session_start(); // Szesszió indítása
 
-// Ellenőrizd, hogy a felhasználó be van-e jelentkezve
-if (!isset($_SESSION['token']))
-{
-    header ("Location:login.php");
-}
-
-?>
 
 
 
@@ -81,16 +76,11 @@ if (!isset($_SESSION['token']))
               </li>
               
             </ul>
-            <form class="d-flex">
-                <?php if ($is_logged_in): ?>
-                    <!-- Ha be van jelentkezve a felhasználó, a profil gomb jelenik meg -->
-                    <a style="display: block;" id="Logged" href="profil.php">
-                        <img class="profKep" id="profkep" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
-                    </a>
-                <?php else: ?>
-                    <!-- Ha nincs bejelentkezve, akkor a Login/Register gomb jelenik meg -->
-                    <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
-                <?php endif; ?>
+            <form class="d-flex" >
+              <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
+              <a style="display: none;" id="Logged" href="profil.html">
+                <img class="profKep" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
+              </a>
             </form>
           </div>
         </div>
