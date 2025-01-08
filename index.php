@@ -9,7 +9,7 @@ if (!isset($_SESSION['token']))
 
 ?>
 
-
+valami
 
 <!DOCTYPE html>
 <html lang="en">
