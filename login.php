@@ -77,14 +77,14 @@
        
         echo $password;
        
-        // Prepare and bind
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+        $sql = "SELECT * FROM users WHERE username = $username AND password = $password";
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $username, $password);
-
-        // Execute the statement
         $stmt->execute();
         $result = $stmt->get_result();
 
+        
+      
         if ($result->num_rows > 0) {
 
             $token = bin2hex(random_bytes(32));
