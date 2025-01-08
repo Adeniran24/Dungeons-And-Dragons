@@ -34,12 +34,6 @@
               </li>
               
             </ul>
-            <form class="d-flex" >
-              <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
-              <a style="display: none;" id="Logged" href="profil.html">
-                <img class="profKep" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
-              </a>
-            </form>
           </div>
         </div>
       </nav>

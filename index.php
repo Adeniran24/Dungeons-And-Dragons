@@ -2,11 +2,10 @@
 session_start(); // Szesszió indítása
 
 // Ellenőrizd, hogy a felhasználó be van-e jelentkezve
-/*if (!isset($_SESSION['token']))
+if (!isset($_SESSION['token']))
 {
     header ("Location:login.php");
 }
- ki kell szedni a kommentet*/
 
 ?>
 
@@ -55,7 +54,7 @@ session_start(); // Szesszió indítása
                 <?php if ($is_logged_in): ?>
                     <!-- Ha be van jelentkezve a felhasználó, a profil gomb jelenik meg -->
                     <a style="display: block;" id="Logged" href="profil.php">
-                        <img class="profKep" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
+                        <img class="profKep" id="profkep" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
                     </a>
                 <?php else: ?>
                     <!-- Ha nincs bejelentkezve, akkor a Login/Register gomb jelenik meg -->
