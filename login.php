@@ -119,7 +119,7 @@
     
     <!-- Sign In Form (Visible by default) -->
     <div id="signIn" style="display: block;">
-        <form method="post" action="http://localhost/IKT.ADENIRAN/Arkadia/php/login.php">
+        <form method="post" action="https://adeniran.shop/login.php">
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
@@ -145,7 +145,7 @@
 
     <!-- Sign Up Form (Initially hidden) -->
     <div id="signUp" style="display: none;">
-        <form method="post" action="http://localhost/IKT.ADENIRAN/Arkadia/php/register.php">
+        <form method="post" action="https://adeniran.shop/register.php">
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                 <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
