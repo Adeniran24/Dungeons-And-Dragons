@@ -10,7 +10,8 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     // The user is logged in, you can use the session variables
     $is_logged_in = true;
     $user_id = $_SESSION['user_id'];
-    $username = $_SESSION['username'];
+    $username = $_SESSION['username'];    
+    $_SESSION['profile_picture'] = $user['profile_picture']; // Store the profile image URL in session
 
     // Optional: verify token if using cookie for added security
     if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
@@ -70,12 +71,12 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>
                 <!-- If the user is logged in, the profile button with their username and image will be shown -->
-                <a style="display: block;" id="Logged" href="profil.php">
+                <a style="display: block;" id="Logged" href="profil.php" >
                     <!-- Display the user's profile image -->
                     <img class="profKep" id="profkep" 
-                        src="<?php echo htmlspecialchars($user['profile_picture_path']); ?>" 
+                        src="<?php echo htmlspecialchars($user['profile_picture']); ?>" 
                         alt="Profile Image">
-                    Profil: <?php echo htmlspecialchars($_SESSION['username']); ?>
+                        <?php echo htmlspecialchars($_SESSION['username']); ?>
                 </a>
                 <?php else: ?>
                     <!-- Ha nincs bejelentkezve, akkor a Login/Register gomb jelenik meg -->
