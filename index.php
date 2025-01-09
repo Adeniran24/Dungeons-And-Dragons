@@ -74,7 +74,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
                 <a style="display: block;" id="Logged" href="profil.php" >
                     <!-- Display the user's profile image -->
                     <img class="profKep" id="profkep" 
-                        src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Image">
+                        src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ); ?>" alt="Profile Image">
                         <?php echo htmlspecialchars($_SESSION['username']); ?>
                 </a>
                 <?php else: ?>
