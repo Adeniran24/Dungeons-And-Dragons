@@ -10,9 +10,11 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     // The user is logged in, you can use the session variables
     $is_logged_in = true;
     $user_id = $_SESSION['user_id'];
-    $username = $_SESSION['username'];    
-    $_SESSION['profile_picture'] = $user['profile_picture']; // Store the profile image URL in session
+    $username = $_SESSION['username'];
 
+    // Store the profile image URL in session (assume profile picture is already set in the session)
+    $_SESSION['profile_picture'] = $_SESSION['profile_picture']; 
+    
     // Optional: verify token if using cookie for added security
     if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
         // Invalidate session if the token does not match
@@ -22,8 +24,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         exit();
     }
 }
-
-// Now you can use $user_id, $username, and other session variables
 ?>
 
 
@@ -74,8 +74,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
                 <a style="display: block;" id="Logged" href="profil.php" >
                     <!-- Display the user's profile image -->
                     <img class="profKep" id="profkep" 
-                        src="<?php echo htmlspecialchars($user['profile_picture']); ?>" 
-                        alt="Profile Image">
+                        src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Image">
                         <?php echo htmlspecialchars($_SESSION['username']); ?>
                 </a>
                 <?php else: ?>
