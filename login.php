@@ -81,26 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="character.php">Characters</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="wiki.php">Wiki</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="dmTools">DM Tools</a>
-              </li>
-              
-            </ul>
-            <form class="d-flex" >
-              <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
-              <a style="display: none;" id="Logged" href="profil.html">
-                <img class="profKep" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
-              </a>
-            </form>
-          </div>
         </div>
       </nav>
 
@@ -113,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     <!-- Sign In Form (Visible by default) -->
     <div id="signIn" style="display: block;">
-        <form method="post" action="https://adeniran.shop/index.php">
+        <form method="post" action="./index.php">
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
@@ -138,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <!-- Sign Up Form (Initially hidden) -->
     <div id="signUp" style="display: none;">
-        <form method="post" action="https://adeniran.shop/login.php">
+        <form method="post" action="./login.php">
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                 <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
