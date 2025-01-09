@@ -24,14 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
-        // Verify the password using MD5
+        // Verify the password using MD5 (use a more secure hashing mechanism in real applications)
         if (md5($password) === $user['password']) {
-            // Set session or cookie
+            // Set session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
 
-            // Generate an auth token (optional)
+            // Optionally, generate a secure token (JWT or a random token for session authentication)
             $token = bin2hex(random_bytes(32));
+            $_SESSION['token'] = $token;  // Store token in session
+
+            // Or use a secure cookie to store the token
             setcookie('auth_token', $token, time() + 3600, '/', '', true, true);
 
             // Redirect to home page
@@ -49,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
