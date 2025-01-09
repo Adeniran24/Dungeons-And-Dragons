@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     $username = $_SESSION['username'];
 
     // Store the profile image URL in session (assume profile picture is already set in the session)
-    $_SESSION['profile_picture'] = $_SESSION['profile_picture']; 
+    $profil_img['profile_picture'] = $_SESSION['profile_picture']; 
     
     // Optional: verify token if using cookie for added security
     if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
