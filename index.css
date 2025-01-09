@@ -25,6 +25,17 @@ body {
 }
 
 
+#profkep {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+  display: block;
+  border: 5px solid #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
 
 /* Buttons with medieval vibe */
 .btn-primary, .btn-outline-success, .btn-outline-warning, .img-thumbnail {
@@ -249,13 +260,3 @@ img:hover {
   }
 }
 
-#profkep {
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    margin: 0 auto;
-    display: block;
-    border: 5px solid #d4af37;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
