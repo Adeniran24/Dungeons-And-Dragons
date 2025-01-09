@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Close the statement and connection
     $stmt->close();
     $conn->close();
+
 }
 ?>
 <!DOCTYPE html>
@@ -93,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     <!-- Sign In Form (Visible by default) -->
     <div id="signIn" style="display: block;">
-        <form method="post" action="./index.php">
+        <form method="post" action="./login.php">
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
@@ -118,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <!-- Sign Up Form (Initially hidden) -->
     <div id="signUp" style="display: none;">
-        <form method="post" action="./login.php">
+        <form method="post" action="./register.php">
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                 <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
