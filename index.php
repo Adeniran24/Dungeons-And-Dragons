@@ -6,6 +6,10 @@ if (!isset($_SESSION['token']))
 {
     header ("Location:login.php");
 }
+else
+{
+    $is_logged_in = true;
+}
 
 ?>
 

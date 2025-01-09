@@ -24,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
-        // Verify the password
-        if (password_verify($password, $user['password'])) {
+        // Verify the password using MD5
+        if (md5($password) === $user['password']) {
             // Set session or cookie
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             setcookie('auth_token', $token, time() + 3600, '/', '', true, true);
 
             // Redirect to home page
-            header("Location: ../base.html");
+            header("Location: index.php");
             exit();
         } else {
             echo "Invalid password.";
@@ -47,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Close the statement and connection
     $stmt->close();
     $conn->close();
-
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
