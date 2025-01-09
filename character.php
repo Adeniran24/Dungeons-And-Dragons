@@ -1,4 +1,15 @@
 <?php
+session_start(); // Szesszió indítása
+
+// Ellenőrizd, hogy a felhasználó be van-e jelentkezve
+if (!isset($_SESSION['token']))
+{
+    header ("Location:login.php");
+}
+
+?>
+
+<?php
 include 'connect.php';
 
 //Ha nincs bejelentkezve, akkor a login.php oldalra irányítjuk

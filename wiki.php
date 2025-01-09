@@ -1,3 +1,15 @@
+<?php
+session_start(); // Szesszió indítása
+
+// Ellenőrizd, hogy a felhasználó be van-e jelentkezve
+if (!isset($_SESSION['token']))
+{
+    header ("Location:login.php");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
