@@ -254,9 +254,12 @@ img:hover {
 
 
 #profkep {
-  width: 70px;             /* Kép szélessége */
-  height: 70px;            /* Kép magassága */
-  border-radius: 50%;       /* Kerekítés */
-  object-fit: cover;        /* Kép illeszkedése */
-  border: 2px solid #ccc;   /* Kép körüli keret */
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    display: block;
+    border: 5px solid #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
