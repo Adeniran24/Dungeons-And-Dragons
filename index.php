@@ -45,7 +45,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+<nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
     D&D Ultimate Tool
@@ -71,7 +71,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>
                 <!-- If the user is logged in, the profile button with their username and image will be shown -->
-                <a style="display: block;" id="Logged" href="profil.php" >
+                <a style="display: block; color:yellow;" id="Logged" href="profil.php" >
                     <!-- Display the user's profile image -->
                     <img class="profKep" id="profkep" 
                         src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Image">

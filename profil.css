@@ -1,7 +1,9 @@
-
-/*profile box*/
-  .profile-box {
+/* Profile Box */
+.profile-box {
     display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: center;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
@@ -10,99 +12,30 @@
     margin: 20px auto;
 }
 
-.profile-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-}
-
+/* Profile Picture */
 .profile-pic {
     width: 30%;
-    height: 100%;
+    height: auto; /* Adjust to maintain aspect ratio */
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
 }
 
-.logout-btn {
-    text-decoration: none;
-    background-color: #ff4c4c;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-    width: 45%;
-    display: block;
-    margin-top: 10px;
-}
-
-.profile-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
+/* Username */
 .username {
     font-size: 24px;
     font-weight: bold;
     margin: 0;
 }
 
+/* Registration Date */
 .registration-date {
     color: #666;
     font-size: 14px;
     margin-top: 5px;
 }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.close-btn {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #aaa;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.close-btn:hover {
-    color: #000;
-}
-
-.image-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.default-pic {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: border 0.3s ease;
-}
-
-.default-pic:hover {
-    border: 2px solid #007bff;
-}
-
+/* Change Picture Button */
 .change-pic-btn {
     margin-top: 10px;
     padding: 5px 10px;
@@ -117,21 +50,29 @@
     background-color: #0056b3;
 }
 
-  
+/* Logout Button */
+.logout-btn {
+    text-decoration: none;
+    background-color: #ff4c4c;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    width: 45%;
+    display: block;
+    margin-top: 10px;
+}
 
-
-
-
-
-/*friend list*/
+/* Friend list */
 .friend-list {
     position: fixed;
     top: 100px;
     right: 20px;
     width: 300px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
     background-color: rgba(155, 88, 34, 0.50);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 15px;
     overflow-y: auto;
     max-height: 80vh;
@@ -183,4 +124,76 @@
 .friend-status {
     font-size: 12px;
     color: #777;
+}
+
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    text-align: center;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #aaa;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+.image-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.default-pic {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+
+.default-pic:hover {
+    border: 2px solid #007bff;
+}
+
+.change-pic-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.change-pic-btn:hover {
+    background-color: #0056b3;
 }

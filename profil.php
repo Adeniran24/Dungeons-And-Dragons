@@ -101,17 +101,15 @@ if ($is_logged_in) {
 </div>
 
 <!-- Profile Box -->
+<!-- Profile Box -->
 <div class="profile-box">
-    <div class="profile-left">
-        <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
-        <h2 class="username"><?php echo $username; ?></h2>
-        <p class="registration-date">Joined on: <?php echo $_SESSION['registration_date']; ?></p>
-        <button class="change-pic-btn" onclick="openModal()">Change Picture</button>
-        <a href="logout.php" class="logout-btn">Logout</a>
-    </div>
-    <div class="profile-right">
-    </div>
+    <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
+    <h2 class="username"><?php echo $username; ?></h2>
+    <p class="registration-date">Joined on: <?php echo $_SESSION['registration_date']; ?></p>
+    <button class="change-pic-btn" onclick="openModal()">Change Picture</button>
+    <a href="logout.php" class="logout-btn">Logout</a>
 </div>
+
 
 <!-- Modal Window -->
 <div id="pictureModal" class="modal">
@@ -187,69 +185,6 @@ if ($is_logged_in) {
         <span class="">Đ&Đ Ultimate Tools</span>
       </div>
     </footer>
-
-
-
-
-
-
-
-
-
-
-    <?php
-
-// Ensure the request is a POST request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if the 'profile_picture' parameter exists in the request
-    if (isset($_POST['profile_picture'])) {
-        // Sanitize the input to prevent directory traversal or malicious input
-        $profile_picture = filter_var($_POST['profile_picture'], FILTER_SANITIZE_STRING);
-
-        // Ensure the file exists and is in the './defaults/' directory
-        if (file_exists($profile_picture) && strpos(realpath($profile_picture), realpath('./defaults/')) === 0) {
-            // Save the selected profile picture path to the session
-            $_SESSION['profile_picture'] = $profile_picture;
-
-            // Optional: Save to the database if needed
-            // Uncomment and customize if you're storing the profile picture in the database
-            
-            require_once 'connect.php'; // Replace with your database connection file
-            $user_id = $_SESSION['user_id']; // Assuming the user's ID is stored in the session
-            $stmt = $db->prepare("UPDATE users SET profile_picture = ? WHERE id = ?");
-            $stmt->bind_param("si", $profile_picture, $user_id);
-            $stmt->execute();
-            
-
-            // Send a success response
-            echo "Profile picture updated successfully.";
-            exit;
-        } else {
-            // File does not exist or is not in the allowed directory
-            http_response_code(400);
-            echo "Invalid profile picture.";
-            exit;
-        }
-    } else {
-        // 'profile_picture' parameter is missing
-        http_response_code(400);
-        echo "No profile picture provided.";
-        exit;
-    }
-} else {
-    // If the request is not POST, return a 405 Method Not Allowed response
-    http_response_code(405);
-    echo "Method not allowed.";
-    exit;
-}
-?>
-
-
-
-
-
-
-
 </body>
 </html>
 

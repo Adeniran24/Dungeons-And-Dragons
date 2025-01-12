@@ -68,10 +68,13 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
             </ul>
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>
-                    <!-- Ha be van jelentkezve a felhasználó, a profil gomb jelenik meg -->
-                    <a style="display: block;" id="Logged" href="profil.php">
-                        <img class="profKep" id="profkep" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
-                    </a>
+                <!-- If the user is logged in, the profile button with their username and image will be shown -->
+                <a style="display: block; color:yellow;" id="Logged" href="profil.php" >
+                    <!-- Display the user's profile image -->
+                    <img class="profKep" id="profkep" 
+                        src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Image">
+                        <?php echo htmlspecialchars($_SESSION['username']); ?>
+                </a>
                 <?php else: ?>
                     <!-- Ha nincs bejelentkezve, akkor a Login/Register gomb jelenik meg -->
                     <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
