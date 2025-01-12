@@ -7,7 +7,6 @@ session_start(); // Start the session
 
 
 
-/*
 // Check if the user is logged in by verifying session variables
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     // If the user is not logged in, redirect to login page
@@ -32,7 +31,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         exit();
     }
 }
-*/
 
 
 
@@ -120,7 +118,17 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 </div>
 
 
-
+<style>
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    text-align: center;
+    position: relative;
+}
+</style>
 
 
 
