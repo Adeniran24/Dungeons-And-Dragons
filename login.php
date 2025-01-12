@@ -29,6 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Set session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['profile_picture'] = $user['profile_picture'];
+            $_SESSION['status'] = $user['status'];
+            $_SESSION['registration_date']= $user['registration_date'];
+            $stmt = $conn->prepare("UPDATE users SET status = 'Online' WHERE id = ?");
+            $stmt->bind_param("i", $user['id']); // Bind user ID as an integer
+            $stmt->execute();
+            
+
 
             // Optionally, generate a secure token (JWT or a random token for session authentication)
             $token = bin2hex(random_bytes(32));
@@ -39,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Redirect to home page
             header("Location: index.php");
+            
+
             exit();
         } else {
             echo "Invalid password.";

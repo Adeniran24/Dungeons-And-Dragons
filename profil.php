@@ -35,7 +35,20 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 
 
 
+// Fetch the list of friends from the database
+require_once 'connect.php'; // Include your database connection
 
+$friends = [];
+if ($is_logged_in) {
+    $stmt = $conn->prepare("SELECT u.id, u.username, u.profile_picture, u.status    FROM friends f    JOIN users u ON f.friend_id = u.id    WHERE f.user_id = ? AND f.status = 'Friend';");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $friends[] = $row; // Save each friend's data
+    }
+    $stmt->close();
+}
 
 
 
@@ -91,12 +104,12 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 <div class="profile-box">
     <div class="profile-left">
         <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
-        <p class="registration-date">Joined on: <?php echo $registration_date; ?></p>
+        <h2 class="username"><?php echo $username; ?></h2>
+        <p class="registration-date">Joined on: <?php echo $_SESSION['registration_date']; ?></p>
         <button class="change-pic-btn" onclick="openModal()">Change Picture</button>
         <a href="logout.php" class="logout-btn">Logout</a>
     </div>
     <div class="profile-right">
-        <h2 class="username"><?php echo $username; ?></h2>
     </div>
 </div>
 
@@ -130,29 +143,26 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
                 <img src="<?php echo htmlspecialchars($friend['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="friend-pic">
                 <div class="friend-info">
                     <span class="friend-name"><?php echo htmlspecialchars($friend['username']); ?></span>
-                    <span class="friend-status"><?php echo htmlspecialchars($friend['status']); ?></span>
+                    <span class="friend-status <?php echo ($friend['status'] === 'Online') ? 'Online' : 'Offline'; ?>">
+                        <?php echo htmlspecialchars($friend['status']); ?>
+                    </span>
                 </div>
             </li>
         <?php endforeach; ?>
     </ul>
 </div>
 
-<?php
-// Fetch the list of friends from the database
-require_once 'connect.php'; // Include your database connection
-
-$friends = [];
-if ($is_logged_in) {
-    $stmt = $db->prepare("SELECT username, profile_picture, status FROM friends WHERE user_id = ?");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $friends[] = $row; // Save each friend's data
-    }
-    $stmt->close();
+<style>.friend-status.online {
+    color: green; /* Green color for available (online) friends */
 }
-?>
+
+.friend-status.offline {
+    color: red; /* Red color for offline friends */
+}
+</style>
+
+
+
 
 
 
@@ -204,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Optional: Save to the database if needed
             // Uncomment and customize if you're storing the profile picture in the database
             
-            require_once 'db_connection.php'; // Replace with your database connection file
+            require_once 'connect.php'; // Replace with your database connection file
             $user_id = $_SESSION['user_id']; // Assuming the user's ID is stored in the session
             $stmt = $db->prepare("UPDATE users SET profile_picture = ? WHERE id = ?");
             $stmt->bind_param("si", $profile_picture, $user_id);
