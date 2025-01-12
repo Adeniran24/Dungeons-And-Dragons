@@ -148,6 +148,48 @@ if ($is_logged_in) {
             </li>
         <?php endforeach; ?>
     </ul>
+    <!-- HTML for search results -->
+<form action="search_friends.php" method="GET">
+    <input type="text" name="search" placeholder="Search for friends" />
+    <button type="submit">Search</button>
+</form>
+
+
+<?php if (isset($users)): ?>
+    <ul>
+        <?php foreach ($users as $user): ?>
+            <li>
+                <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
+                <?php echo htmlspecialchars($user['username']); ?>
+                <form action="add_friend.php" method="POST">
+                    <input type="hidden" name="friend_id" value="<?php echo $user['id']; ?>" />
+                    <button type="submit">Add Friend</button>
+                </form>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
+
+
+    <h3>Friend Requests</h3>
+
+<?php if (empty($requests)): ?>
+    <p>You have no pending friend requests.</p>
+<?php else: ?>
+    <ul>
+        <?php foreach ($requests as $request): ?>
+            <li>
+                <img src="<?php echo htmlspecialchars($request['profile_picture']); ?>" alt="Profile Picture">
+                <?php echo htmlspecialchars($request['username']); ?>
+                <form action="respond_friend_request.php" method="POST">
+                    <input type="hidden" name="friend_id" value="<?php echo $request['friend_id']; ?>" />
+                    <button type="submit" name="action" value="accept">Accept</button>
+                    <button type="submit" name="action" value="deny">Deny</button>
+                </form>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 </div>
 
 <style>.friend-status.online {
@@ -158,13 +200,6 @@ if ($is_logged_in) {
     color: red; /* Red color for offline friends */
 }
 </style>
-
-
-
-
-
-
-
 
 <style>
 .modal-content {
@@ -180,6 +215,7 @@ if ($is_logged_in) {
 
 
 
+
       <footer class="footer mt-auto py-3 ">
       <div class="container">
         <span class="">Đ&Đ Ultimate Tools</span>
@@ -187,6 +223,3 @@ if ($is_logged_in) {
     </footer>
 </body>
 </html>
-
-
-
