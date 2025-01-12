@@ -107,9 +107,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         <div class="image-options">
             <?php
             // Fetch all images from the ./defaults directory
-            /*
-              nem tom melyik jó vagy ez
-
+            
             $directory = './defaults/';
             $images = glob($directory . "*.jpg"); // Adjust extension as needed (e.g., .png, .jpeg)
 
@@ -117,19 +115,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
                 echo '<img src="' . htmlspecialchars($image) . '" alt="Default Profile" class="default-pic" onclick="selectImage(\'' . htmlspecialchars($image) . '\')">';
             }
             ?>
-
-              vagy ez 
-
-            <?php
-                $directory = './defaults/';
-                $images = glob($directory . "*.jpg");
-                foreach ($images as $image) {
-                    echo '<img src="' . htmlspecialchars($image) . '" alt="Default Profile" class="default-pic" onclick="selectImage(\'' . htmlspecialchars($image) . '\')">';
-                }
-
-
-                    */
-                ?>
         </div>
     </div>
 </div>
