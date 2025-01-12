@@ -7,6 +7,7 @@ session_start(); // Start the session
 
 
 
+
 // Check if the user is logged in by verifying session variables
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     // If the user is not logged in, redirect to login page
@@ -31,6 +32,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         exit();
     }
 }
+
 
 
 
@@ -85,6 +87,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 
 </div>
 
+<!-- Profile Box -->
 <div class="profile-box">
     <div class="profile-left">
         <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
@@ -116,6 +119,43 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         </div>
     </div>
 </div>
+
+
+<!-- Friend List -->
+<div class="friend-list">
+    <h3>Your Friends</h3>
+    <ul class="friends">
+        <?php foreach ($friends as $friend): ?>
+            <li class="friend">
+                <img src="<?php echo htmlspecialchars($friend['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="friend-pic">
+                <div class="friend-info">
+                    <span class="friend-name"><?php echo htmlspecialchars($friend['username']); ?></span>
+                    <span class="friend-status"><?php echo htmlspecialchars($friend['status']); ?></span>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+
+<?php
+// Fetch the list of friends from the database
+require_once 'connect.php'; // Include your database connection
+
+$friends = [];
+if ($is_logged_in) {
+    $stmt = $db->prepare("SELECT username, profile_picture, status FROM friends WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $friends[] = $row; // Save each friend's data
+    }
+    $stmt->close();
+}
+?>
+
+
+
 
 
 <style>
