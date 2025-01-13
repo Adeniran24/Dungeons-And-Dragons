@@ -1,58 +1,58 @@
 <?php
-session_start(); // Start the session
+    session_start(); // Start the session
 
-// Check if the user is logged in by verifying session variables
-
-
+    // Check if the user is logged in by verifying session variables
 
 
 
 
-// Check if the user is logged in by verifying session variables
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
-    // If the user is not logged in, redirect to login page
-    header("Location: login.php");
-    exit();
-} else {
-    // The user is logged in, you can use the session variables
-    $is_logged_in = true;
-    $user_id = $_SESSION['user_id'];
-    $username = $_SESSION['username'];    
-    $profile_picture = $_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg';
 
-    // Store the profile image URL in session (assume profile picture is already set in the session)
-    $profil_img['profile_picture'] = $_SESSION['profile_picture']; 
-    
-    // Optional: verify token if using cookie for added security
-    if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
-        // Invalidate session if the token does not match
-        session_unset();
-        session_destroy();
+
+    // Check if the user is logged in by verifying session variables
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
+        // If the user is not logged in, redirect to login page
         header("Location: login.php");
         exit();
+    } else {
+        // The user is logged in, you can use the session variables
+        $is_logged_in = true;
+        $user_id = $_SESSION['user_id'];
+        $username = $_SESSION['username'];    
+        $profile_picture = $_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg';
+
+        // Store the profile image URL in session (assume profile picture is already set in the session)
+        $profil_img['profile_picture'] = $_SESSION['profile_picture']; 
+        
+        // Optional: verify token if using cookie for added security
+        if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
+            // Invalidate session if the token does not match
+            session_unset();
+            session_destroy();
+            header("Location: login.php");
+            exit();
+        }
     }
-}
 
 
 
-// Fetch the list of friends from the database
-require_once 'connect.php'; // Include your database connection
+    // Fetch the list of friends from the database
+    require_once 'connect.php'; // Include your database connection
 
-$friends = [];
-if ($is_logged_in) {
-    $stmt = $conn->prepare("SELECT u.id, u.username, u.profile_picture, u.status    FROM friends f    JOIN users u ON f.friend_id = u.id    WHERE f.user_id = ? AND f.status = 'Friend';");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $friends[] = $row; // Save each friend's data
+    $friends = [];
+    if ($is_logged_in) {
+        $stmt = $conn->prepare("SELECT u.id, u.username, u.profile_picture, u.status    FROM friends f    JOIN users u ON f.friend_id = u.id    WHERE f.user_id = ? AND f.status = 'Friend';");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $friends[] = $row; // Save each friend's data
+        }
+        $stmt->close();
     }
-    $stmt->close();
-}
 
 
 
-// Now you can use $user_id, $username, and other session variables
+    // Now you can use $user_id, $username, and other session variables
 ?>
 
 <!DOCTYPE html>
@@ -76,8 +76,8 @@ if ($is_logged_in) {
     <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
-    D&D Ultimate Tool
-</a>          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        D&D Ultimate Tool
+        </a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -100,7 +100,6 @@ if ($is_logged_in) {
 
 </div>
 
-<!-- Profile Box -->
 <!-- Profile Box -->
 <div class="profile-box">
     <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
@@ -135,7 +134,7 @@ if ($is_logged_in) {
 <!-- Friend List -->
 <div class="friend-list">
     <h3>Your Friends</h3>
-    <ul class="friends">
+    <ul class="friends_lista">
         <?php foreach ($friends as $friend): ?>
             <li class="friend">
                 <img src="<?php echo htmlspecialchars($friend['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="friend-pic">
@@ -149,13 +148,13 @@ if ($is_logged_in) {
         <?php endforeach; ?>
     </ul>
     <!-- HTML for search results -->
-<form action="search_friends.php" method="GET">
+    <form action="search_friends.php" method="GET">
     <input type="text" name="search" placeholder="Search for friends" />
     <button type="submit">Search</button>
-</form>
+    </form>
 
 
-<?php if (isset($users)): ?>
+    <?php if (isset($users)): ?>
     <ul>
         <?php foreach ($users as $user): ?>
             <li>
@@ -174,74 +173,72 @@ if ($is_logged_in) {
     <h3>Friend Requests</h3>
     <?php
 
-if (!isset($_SESSION['user_id'])) {
-    die("User not logged in.");
-}
+    if (!isset($_SESSION['user_id'])) {
+        die("User not logged in.");
+    }
 
-$user_id = $_SESSION['user_id']; // Logged-in receiver's ID
+    $user_id = $_SESSION['user_id']; // Logged-in receiver's ID
 
-$stmt = $conn->prepare("
-    SELECT fr.id, u.username, u.profile_picture 
-    FROM friend_requests fr 
-    JOIN users u ON fr.sender_id = u.id 
-    WHERE fr.receiver_id = ? AND fr.status = 'pending'
-");
-if (!$stmt) {
-    die("Prepare failed: " . $conn->error);
-}
+    $stmt = $conn->prepare("
+        SELECT fr.id, u.username, u.profile_picture 
+        FROM friend_requests fr 
+        JOIN users u ON fr.sender_id = u.id 
+        WHERE fr.receiver_id = ? AND fr.status = 'pending'
+    ");
+    if (!$stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
 
-$stmt->bind_param("i", $user_id);
+    $stmt->bind_param("i", $user_id);
 
-if (!$stmt->execute()) {
-    die("Error executing query: " . $stmt->error);
-}
+    if (!$stmt->execute()) {
+        die("Error executing query: " . $stmt->error);
+    }
 
-$result = $stmt->get_result();
-$friend_requests = [];
-while ($row = $result->fetch_assoc()) {
-    $friend_requests[] = $row;
-}
-$stmt->close();
-?>
+    $result = $stmt->get_result();
+    $friend_requests = [];
+    while ($row = $result->fetch_assoc()) {
+        $friend_requests[] = $row;
+    }
+    $stmt->close();
+    ?>
 
-<?php if (empty($friend_requests)): ?>
-    <p>You have no pending friend requests.</p>
-<?php else: ?>
-    <div class="friend-requests-container">
-        <?php foreach ($friend_requests as $request): ?>
-            <div class="friend-request">
-                <img id="profkep" src="<?php echo htmlspecialchars($request['profile_picture']); ?>" alt="Profile Picture" class="request-profile-pic">
-                <p class="request-username"><?php echo htmlspecialchars($request['username']); ?></p>
-                <form action="respond_friend_request.php" method="POST">
-                    <input type="hidden" name="friend_request_id" value="<?php echo $request['id']; ?>">
-                    <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
-                    <button type="submit" name="action" value="deny" class="btn btn-danger">Deny</button>
-                </form>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php endif; ?>
+    <?php if (empty($friend_requests)): ?>
+        <p>You have no pending friend requests.</p>
+    <?php else: ?>
+        <div class="friend-requests-container">
+            <?php foreach ($friend_requests as $request): ?>
+                <div class="friend-request">
+                    <img id="profkep" src="<?php echo htmlspecialchars($request['profile_picture']); ?>" alt="Profile Picture" class="request-profile-pic">
+                    <p class="request-username"><?php echo htmlspecialchars($request['username']); ?></p>
+                    <form action="respond_friend_request.php" method="POST">
+                        <input type="hidden" name="friend_request_id" value="<?php echo $request['id']; ?>">
+                        <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
+                        <button type="submit" name="action" value="deny" class="btn btn-danger">Deny</button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </div>
 
 <style>.friend-status.online {
-    color: green; /* Green color for available (online) friends */
-}
+        color: green; /* Green color for available (online) friends */
+    }
 
-.friend-status.offline {
-    color: red; /* Red color for offline friends */
-}
-</style>
+    .friend-status.offline {
+        color: red; /* Red color for offline friends */
+    }
 
-<style>
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    text-align: center;
-    position: relative;
-}
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        text-align: center;
+        position: relative;
+    }
 </style>
 
 
@@ -251,106 +248,115 @@ $stmt->close();
 
         <!-- Character List -->
 <div class="character-list row">
-    <?php
-// Fetch the user's characters
-$characters = [];
-$stmt = $conn->prepare("
-    SELECT 
-        characters.id, 
-        characters.name, 
-        characters.image, 
-        races.name AS race, 
-        classes.name AS class 
-    FROM characters
-    LEFT JOIN races ON characters.race_id = races.id
-    LEFT JOIN classes ON characters.class_id = classes.id
-    WHERE characters.user_id = ?
-");
-
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-while ($row = $result->fetch_assoc()) {
-    echo "
-    <div class='character-card col-md-3'>
-        <a href='character_details.php?id={$row['id']}'>
-            <img src='{$row['image']}' alt='{$row['name']}' class='character-image'>
-        </a>
-        <div class='character-info'>
-            <a href='character_details.php?id={$row['id']}' class='character-name'>{$row['name']}</a>
-            <p class='character-race'>Race: {$row['race']}</p>
-            <p class='character-class'>Class: {$row['class']}</p>
+        <div>
+            <h3>Your Characters</h3>
+            <?php if (empty($characters)): ?>
+                <p>You have no characters yet. <a href="create_character.php">Create one now</a>.</p>
+            <?php else: ?>
+                <ul>
+                    <?php foreach ($characters as $character): ?>
+                        <li>
+                            <h4><?php echo htmlspecialchars($character['name']); ?></h4>
+                            <p>Class: <?php echo htmlspecialchars($character['class']); ?></p>
+                            <p>Race: <?php echo htmlspecialchars($character['race']); ?></p>
+                            <p>Level: <?php echo htmlspecialchars($character['level']); ?></p>
+                            <a href="view_character.php?id=<?php echo htmlspecialchars($character['id']); ?>">View Details</a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </div>
-    </div>";
-}
-?>
+        <?php
+    // Fetch the user's characters
+    $characters = [];
+    $stmt = $conn->prepare("
+        SELECT 
+            characters.id, 
+            characters.name, 
+            characters.image, 
+            races.name AS race, 
+            classes.name AS class 
+        FROM characters
+        LEFT JOIN races ON characters.race_id = races.id
+        LEFT JOIN classes ON characters.class_id = classes.id
+        WHERE characters.user_id = ?
+    ");
+
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        echo "
+        <div class='character-card col-md-3'>
+            <a href='character_details.php?id={$row['id']}'>
+                <img src='{$row['image']}' alt='{$row['name']}' class='character-image'>
+            </a>
+            <div class='character-info'>
+                <a href='character_details.php?id={$row['id']}' class='character-name'>{$row['name']}</a>
+                <p class='character-race'>Race: {$row['race']}</p>
+                <p class='character-class'>Class: {$row['class']}</p>
+            </div>
+        </div>";
+    }
+    ?>
  <!-- Character List -->
- <div class="character-list">
-        <h3>Your Characters</h3>
-        <?php if (empty($characters)): ?>
-            <p>You have no characters yet. <a href="create_character.php">Create one now</a>.</p>
-        <?php else: ?>
-            <ul>
-                <?php foreach ($characters as $character): ?>
-                    <li>
-                        <h4><?php echo htmlspecialchars($character['name']); ?></h4>
-                        <p>Class: <?php echo htmlspecialchars($character['class']); ?></p>
-                        <p>Race: <?php echo htmlspecialchars($character['race']); ?></p>
-                        <p>Level: <?php echo htmlspecialchars($character['level']); ?></p>
-                        <a href="view_character.php?id=<?php echo htmlspecialchars($character['id']); ?>">View Details</a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+ 
     </div>
-</div>
-<style>
-   dy {
-    font-family: 'Roboto', Arial, sans-serif;
-    background-color: #1a1a1d;
-    color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-}
+    <style>
+        .character-list{
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color:rgba(26, 26, 29, 0.75);
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+        align-items: center; /* Center content horizontally */
+        justify-content: center;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 50%;
+        margin: 20px auto;
+        margin-bottom: 5%;
+        }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-        <style>
-            .character-card img.character-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
+        .character-card img.character-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-.character-info {
-    padding: 15px;
-    color: #f5f5f5;
-}
+        .character-info {
+            padding: 15px;
+            color: #f5f5f5;
+        }
 
-.character-info .character-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #f05454;
-    text-decoration: none;
-}
+        .character-info .character-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #f05454;
+            text-decoration: none;
+        }
 
-.character-info .character-name:hover {
-    text-decoration: underline;
-}
+        .character-info .character-name:hover {
+            text-decoration: underline;
+        }
 
-.character-info .character-race,
-.character-info .character-class {
-    font-size: 0.9rem;
-    color: #a5a5a5;
-    margin: 5px 0;
-}
-        </style>
+        .character-info .character-race,
+        .character-info .character-class {
+            font-size: 0.9rem;
+            color: #a5a5a5;
+            margin: 5px 0;
+        }
+    </style>
 </div>
 
 </div>
