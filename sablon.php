@@ -1,3 +1,34 @@
+<?php
+session_start(); // Start the session
+
+// Check if the user is logged in by verifying session variables
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
+    // If the user is not logged in, redirect to login page
+    header("Location: login.php");
+    exit();
+} else {
+    // The user is logged in, you can use the session variables
+    $is_logged_in = true;
+    $user_id = $_SESSION['user_id'];
+    $username = $_SESSION['username'];
+
+    // Store the profile image URL in session (assume profile picture is already set in the session)
+    $profil_img['profile_picture'] = $_SESSION['profile_picture']; 
+    
+    // Optional: verify token if using cookie for added security
+    if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
+        // Invalidate session if the token does not match
+        session_unset();
+        session_destroy();
+        header("Location: login.php");
+        exit();
+    }
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,16 +45,17 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+<nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
     D&D Ultimate Tool
 </a>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="character.php">Characters</a>
@@ -32,23 +64,27 @@
                 <a class="nav-link active" aria-current="page" href="wiki.php">Wiki</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="dmTools">DM Tools</a>
+                <a class="nav-link active" aria-current="page" href="dmTools.php">DM Tools</a>
               </li>
-              
+
             </ul>
-            <form class="d-flex" >
-              <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
-              <a style="display: none;" id="Logged" href="profil.html">
-                <img class="profKep" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s" alt=""> Profil
-              </a>
+            <form class="d-flex">
+                <?php if ($is_logged_in): ?>
+                <!-- If the user is logged in, the profile button with their username and image will be shown -->
+                <a style="display: block; color:yellow;" id="Logged" href="profil.php" >
+                    <!-- Display the user's profile image -->
+                    <img class="profKep" id="profkep" 
+                        src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Image">
+                        <?php echo htmlspecialchars($_SESSION['username']); ?>
+                </a>
+                <?php else: ?>
+                    <!-- Ha nincs bejelentkezve, akkor a Login/Register gomb jelenik meg -->
+                    <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="login.php">Login/Register</a>
+                <?php endif; ?>
             </form>
-          </div>
         </div>
-      </nav>
-
-
-
-
+    </div>
+</nav>
 
 
 

@@ -35,6 +35,27 @@ body {
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
   transition: transform 0.3s, box-shadow 0.3s;
 }
+.friends {
+  border-radius: 50%;
+  width: 50%;
+  height: 50%;
+  margin: 0 auto;
+  display: block;
+  border: 5px solid #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.friends_req {
+  border-radius: 50%;
+  width: 25%;
+  height: 50%;
+  margin: 0 auto;
+  display: block;
+  border: 5px solid #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
 
 /* Buttons with medieval vibe */
