@@ -100,147 +100,153 @@
 
 </div>
 
-<!-- Profile Box -->
-<div class="profile-box">
-    <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
-    <h2 class="username"><?php echo $username; ?></h2>
-    <p class="registration-date">Joined on: <?php echo $_SESSION['registration_date']; ?></p>
-    <button class="change-pic-btn" onclick="openModal()">Change Picture</button>
-    <a href="logout.php" class="logout-btn">Logout</a>
-</div>
+<div class="row">
+    <div class="col-md-3">
 
-
-<!-- Modal Window -->
-<div id="pictureModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h2>Select a Profile Picture</h2>
-        <div class="image-options">
-            <?php
-            // Fetch all images from the ./defaults directory
-            
-            $directory = './defaults/';
-            $images = glob($directory . "*.jpg"); // Adjust extension as needed (e.g., .png, .jpeg)
-
-            foreach ($images as $image) {
-                echo '<img src="' . htmlspecialchars($image) . '" alt="Default Profile" class="default-pic" onclick="selectImage(\'' . htmlspecialchars($image) . '\')">';
-            }
-            ?>
+    </div>
+    <!-- Profile Box -->
+    <div class="profile-box col-md-6">
+        <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
+        <h2 class="username"><?php echo $username; ?></h2>
+        <p class="registration-date">Joined on: <?php echo $_SESSION['registration_date']; ?></p>
+        <button class="change-pic-btn" onclick="openModal()">Change Picture</button>
+        <a href="logout.php" class="logout-btn">Logout</a>
+    </div>
+    
+    
+    <!-- Modal Window -->
+    <div id="pictureModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Select a Profile Picture</h2>
+            <div class="image-options">
+                <?php
+                // Fetch all images from the ./defaults directory
+    
+                $directory = './defaults/';
+                $images = glob($directory . "*.jpg"); // Adjust extension as needed (e.g., .png, .jpeg)
+    
+                foreach ($images as $image) {
+                    echo '<img src="' . htmlspecialchars($image) . '" alt="Default Profile" class="default-pic" onclick="selectImage(\'' . htmlspecialchars($image) . '\')">';
+                }
+                ?>
+            </div>
         </div>
     </div>
-</div>
+    
+    <div class="col-md-1"></div>
 
-
-<!-- Friend List -->
-<div class="friend-list">
-    <h3>Your Friends</h3>
-    <ul class="friends_lista">
-        <?php foreach ($friends as $friend): ?>
-            <li class="friend">
-                <img src="<?php echo htmlspecialchars($friend['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="friend-pic">
-                <div class="friend-info">
-                    <span class="friend-name"><?php echo htmlspecialchars($friend['username']); ?></span>
-                    <span class="friend-status <?php echo ($friend['status'] === 'Online') ? 'Online' : 'Offline'; ?>">
-                        <?php echo htmlspecialchars($friend['status']); ?>
-                    </span>
-                </div>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-    <!-- HTML for search results -->
-    <form action="search_friends.php" method="GET">
-    <input type="text" name="search" placeholder="Search for friends" />
-    <button type="submit">Search</button>
-    </form>
-
-
-    <?php if (isset($users)): ?>
-    <ul>
-        <?php foreach ($users as $user): ?>
-            <li>
-                <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
-                <?php echo htmlspecialchars($user['username']); ?>
-                <form action="add_friend.php" method="POST">
-                    <input type="hidden" name="friend_id" value="<?php echo $user['id']; ?>" />
-                    <button type="submit">Add Friend</button>
-                </form>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-    <?php endif; ?>
-
-
-    <h3>Friend Requests</h3>
-    <?php
-
-    if (!isset($_SESSION['user_id'])) {
-        die("User not logged in.");
-    }
-
-    $user_id = $_SESSION['user_id']; // Logged-in receiver's ID
-
-    $stmt = $conn->prepare("
-        SELECT fr.id, u.username, u.profile_picture 
-        FROM friend_requests fr 
-        JOIN users u ON fr.sender_id = u.id 
-        WHERE fr.receiver_id = ? AND fr.status = 'pending'
-    ");
-    if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
-    }
-
-    $stmt->bind_param("i", $user_id);
-
-    if (!$stmt->execute()) {
-        die("Error executing query: " . $stmt->error);
-    }
-
-    $result = $stmt->get_result();
-    $friend_requests = [];
-    while ($row = $result->fetch_assoc()) {
-        $friend_requests[] = $row;
-    }
-    $stmt->close();
-    ?>
-
-    <?php if (empty($friend_requests)): ?>
-        <p>You have no pending friend requests.</p>
-    <?php else: ?>
-        <div class="friend-requests-container">
-            <?php foreach ($friend_requests as $request): ?>
-                <div class="friend-request">
-                    <img id="profkep" src="<?php echo htmlspecialchars($request['profile_picture']); ?>" alt="Profile Picture" class="request-profile-pic">
-                    <p class="request-username"><?php echo htmlspecialchars($request['username']); ?></p>
-                    <form action="respond_friend_request.php" method="POST">
-                        <input type="hidden" name="friend_request_id" value="<?php echo $request['id']; ?>">
-                        <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
-                        <button type="submit" name="action" value="deny" class="btn btn-danger">Deny</button>
-                    </form>
-                </div>
+    <!-- Friend List -->
+    <div class="friend-list col-md-2">
+        <h3>Your Friends</h3>
+        <ul class="friends_lista">
+            <?php foreach ($friends as $friend): ?>
+                <li class="friend">
+                    <img src="<?php echo htmlspecialchars($friend['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="friend-pic">
+                    <div class="friend-info">
+                        <span class="friend-name"><?php echo htmlspecialchars($friend['username']); ?></span>
+                        <span class="friend-status <?php echo ($friend['status'] === 'Online') ? 'Online' : 'Offline'; ?>">
+                            <?php echo htmlspecialchars($friend['status']); ?>
+                        </span>
+                    </div>
+                </li>
             <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+        </ul>
+        <!-- HTML for search results -->
+        <form action="search_friends.php" method="GET">
+        <input type="text" name="search" placeholder="Search for friends" />
+        <button type="submit">Search</button>
+        </form>
+    
+    
+        <?php if (isset($users)): ?>
+        <ul>
+            <?php foreach ($users as $user): ?>
+                <li>
+                    <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
+                    <?php echo htmlspecialchars($user['username']); ?>
+                    <form action="add_friend.php" method="POST">
+                        <input type="hidden" name="friend_id" value="<?php echo $user['id']; ?>" />
+                        <button type="submit">Add Friend</button>
+                    </form>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php endif; ?>
+    
+    
+        <h3>Friend Requests</h3>
+        <?php
+    
+        if (!isset($_SESSION['user_id'])) {
+            die("User not logged in.");
+        }
+    
+        $user_id = $_SESSION['user_id']; // Logged-in receiver's ID
+    
+        $stmt = $conn->prepare("
+            SELECT fr.id, u.username, u.profile_picture
+            FROM friend_requests fr
+            JOIN users u ON fr.sender_id = u.id
+            WHERE fr.receiver_id = ? AND fr.status = 'pending'
+        ");
+        if (!$stmt) {
+            die("Prepare failed: " . $conn->error);
+        }
+    
+        $stmt->bind_param("i", $user_id);
+    
+        if (!$stmt->execute()) {
+            die("Error executing query: " . $stmt->error);
+        }
+    
+        $result = $stmt->get_result();
+        $friend_requests = [];
+        while ($row = $result->fetch_assoc()) {
+            $friend_requests[] = $row;
+        }
+        $stmt->close();
+        ?>
+    
+        <?php if (empty($friend_requests)): ?>
+            <p>You have no pending friend requests.</p>
+        <?php else: ?>
+            <div class="friend-requests-container">
+                <?php foreach ($friend_requests as $request): ?>
+                    <div class="friend-request">
+                        <img id="profkep" src="<?php echo htmlspecialchars($request['profile_picture']); ?>" alt="Profile Picture" class="request-profile-pic">
+                        <p class="request-username"><?php echo htmlspecialchars($request['username']); ?></p>
+                        <form action="respond_friend_request.php" method="POST">
+                            <input type="hidden" name="friend_request_id" value="<?php echo $request['id']; ?>">
+                            <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
+                            <button type="submit" name="action" value="deny" class="btn btn-danger">Deny</button>
+                        </form>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    
+    <style>.friend-status.online {
+            color: green; /* Green color for available (online) friends */
+        }
+    
+        .friend-status.offline {
+            color: red; /* Red color for offline friends */
+        }
+    
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+            position: relative;
+        }
+    </style>
+    
 </div>
-
-<style>.friend-status.online {
-        color: green; /* Green color for available (online) friends */
-    }
-
-    .friend-status.offline {
-        color: red; /* Red color for offline friends */
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-        text-align: center;
-        position: relative;
-    }
-</style>
-
 
 
 

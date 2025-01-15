@@ -26,37 +26,39 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 ?>
 
 <?php
-include 'connect.php';
+    include 'connect.php';
 
-//Ha nincs bejelentkezve, akkor a login.php oldalra irányítjuk
+    //ne töröld ki mert elrontódik a css
+
+    //Ha nincs bejelentkezve, akkor a login.php oldalra irányítjuk
 
 
 
-// Ha a formot elküldik
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $race = $_POST['race'];
-    $strength = $_POST['strength'];
-    $dexterity = $_POST['dexterity'];
-    $constitution = $_POST['constitution'];
-    $intelligence = $_POST['intelligence'];
-    $wisdom = $_POST['wisdom'];
-    $charisma = $_POST['charisma'];
-    $level = $_POST['level'];
-    $class = $_POST['class'];
+    // Ha a formot elküldik
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = $_POST['name'];
+        $race = $_POST['race'];
+        $strength = $_POST['strength'];
+        $dexterity = $_POST['dexterity'];
+        $constitution = $_POST['constitution'];
+        $intelligence = $_POST['intelligence'];
+        $wisdom = $_POST['wisdom'];
+        $charisma = $_POST['charisma'];
+        $level = $_POST['level'];
+        $class = $_POST['class'];
 
-    // Az SQL lekérdezés a karakter hozzáadásához
-    $sql = "INSERT INTO characters (Name, Race, Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, Level, Class)
-            VALUES ('$name', '$race', $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma, $level, '$class')";
+        // Az SQL lekérdezés a karakter hozzáadásához
+        $sql = "INSERT INTO characters (Name, Race, Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, Level, Class)
+                VALUES ('$name', '$race', $strength, $dexterity, $constitution, $intelligence, $wisdom, $charisma, $level, '$class')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "New character created successfully!";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        if ($conn->query($sql) === TRUE) {
+            echo "New character created successfully!";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
-}
 
-$conn->close();
+    $conn->close();
 ?>
 
 
@@ -123,43 +125,161 @@ $conn->close();
         </div>
     </div>
 </nav>
+<div class="row" style="margin-bottom:5%">
+            <!-- Character List -->
+            <div>
+                <h3>Your Characters</h3>
+                <?php if (empty($characters)): ?>
+                <?php else: ?>
+                    <ul>
+                        <?php foreach ($characters as $character): ?>
+                            <div class="col-md-3">
+                                <h4><?php echo htmlspecialchars($character['name']); ?></h4>
+                                <p>Class: <?php echo htmlspecialchars($character['class']); ?></p>
+                                <p>Race: <?php echo htmlspecialchars($character['race']); ?></p>
+                                <p>Level: <?php echo htmlspecialchars($character['level']); ?></p>
+                                <a href="view_character.php?id=<?php echo htmlspecialchars($character['id']); ?>">View Details</a>
+                            </div>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+            <?php
+        include 'connect.php';
+        // Fetch the user's characters
+        $characters = [];
+        $stmt = $conn->prepare("
+            SELECT 
+                characters.id, 
+                characters.name, 
+                characters.image, 
+                races.name AS race, 
+                classes.name AS class 
+            FROM characters
+            LEFT JOIN races ON characters.race_id = races.id
+            LEFT JOIN classes ON characters.class_id = classes.id
+            WHERE characters.user_id = ?
+        ");
 
-      <h2>Új karakter létrehozása</h2>
-    <form method="POST" action="">
-        <label for="name">Név:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        <label for="race">Faj:</label><br>
-        <input type="text" id="race" name="race" required><br><br>
+        while ($row = $result->fetch_assoc()) {
+            echo "
+            <div class='character-card col-md-3'>
+                <a href='character_details.php?id={$row['id']}'>
+                    <img src='{$row['image']}' alt='{$row['name']}' class='character-image'>
+                </a>
+                <div class='character-info'>
+                    <a href='character_details.php?id={$row['id']}' class='character-name'>{$row['name']}</a>
+                    <p class='character-race'>Race: {$row['race']}</p>
+                    <p class='character-class'>Class: {$row['class']}</p>
+                </div>
+            </div>";
+        }
+        ?>
 
-        <label for="strength">Erő:</label><br>
-        <input type="number" id="strength" name="strength" required><br><br>
+        <div class="col-md-3" id="plus">
+        <a href="generate_character.php"><button class="plus-button"></button><h3>Create Character</h3></a>
+        </div>
+        <style>
+            #plus {
+                border: 5px solid #ddd; 
+                padding: auto;
+                border-radius: 5%;;
+                margin-bottom: 6%;
+            }
+            .plus-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15%;
+            width: 15%;
+            height: 25%;
+            background-color: #007bff; /* Blue background */
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            }
 
-        <label for="dexterity">Ügyesség:</label><br>
-        <input type="number" id="dexterity" name="dexterity" required><br><br>
+            .plus-button::before {
+            content: '';
+            position: absolute;
+            width: 30%;
+            height: 5%;
+            background-color: white; /* White color for the plus sign */
+            }
 
-        <label for="constitution">Kitartás:</label><br>
-        <input type="number" id="constitution" name="constitution" required><br><br>
-
-        <label for="intelligence">Intelligencia:</label><br>
-        <input type="number" id="intelligence" name="intelligence" required><br><br>
-
-        <label for="wisdom">Bölcsesség:</label><br>
-        <input type="number" id="wisdom" name="wisdom" required><br><br>
-
-        <label for="charisma">Karizma:</label><br>
-        <input type="number" id="charisma" name="charisma" required><br><br>
-
-        <label for="level">Szint:</label><br>
-        <input type="number" id="level" name="level" required><br><br>
-
-        <label for="class">Osztály:</label><br>
-        <input type="text" id="class" name="class" required><br><br>
-
-        <button type="submit">Karakter hozzáadása</button>
-    </form>
+            .plus-button::after {
+            content: '';
+            position: absolute;
+            width: 5%;
+            height: 30%;
+            background-color: white; /* White color for the plus sign */
+            }
+        </style>
 
 
+        <!-- Character List -->
+         <style>
+            .character-list{
+                font-family: 'Roboto', Arial, sans-serif;
+                background-color:rgba(26, 26, 29, 0.75);
+                color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                line-height: 1.6;
+                display: flex;
+            align-items: center; /* Center content horizontally */
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 50%;
+            margin: 20px auto;
+            margin-bottom: 5%;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .character-card img.character-image {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .character-info {
+                padding: 15px;
+                color: #f5f5f5;
+            }
+
+            .character-info .character-name {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #f05454;
+                text-decoration: none;
+            }
+
+            .character-info .character-name:hover {
+                text-decoration: underline;
+            }
+
+            .character-info .character-race,
+            .character-info .character-class {
+                font-size: 0.9rem;
+                color: #a5a5a5;
+                margin: 5px 0;
+            }
+        </style>
+    </div>
     
 
 

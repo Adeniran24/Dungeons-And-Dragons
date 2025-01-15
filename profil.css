@@ -66,7 +66,6 @@
 
 /* Friend list */
 .friend-list {
-    position: fixed;
     top: 100px;
     right: 20px;
     width: 300px;
@@ -74,7 +73,6 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 15px;
-    overflow-y: auto;
     max-height: 80vh;
 }
 
