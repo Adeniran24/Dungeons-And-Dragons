@@ -1,129 +1,216 @@
 <?php
-require "connect.php";
-// Fetch races
-$races = $pdo->query("SELECT id, name FROM races")->fetchAll(PDO::FETCH_ASSOC);
+// Adatbázis kapcsolat betöltése
+require 'connect.php';
+session_start(); // Session elindítása
 
-// Fetch subraces
-$subraces = $pdo->query("SELECT id, name, race_id FROM subraces")->fetchAll(PDO::FETCH_ASSOC);
-
-// Fetch classes
-$classes = $pdo->query("SELECT id, name FROM classes")->fetchAll(PDO::FETCH_ASSOC);
-
-// Fetch subclasses
-$subclasses = $pdo->query("SELECT id, name, class_id FROM subclasses")->fetchAll(PDO::FETCH_ASSOC);
-
-// Function to get subraces for a given race
-function getSubracesForRace($raceId, $subraces) {
-    return array_filter($subraces, fn($subrace) => $subrace['race_id'] == $raceId);
+// Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
 }
 
-// Function to get subclasses for a given class
-function getSubclassesForClass($classId, $subclasses) {
-    return array_filter($subclasses, fn($subclass) => $subclass['class_id'] == $classId);
+$user_id = $_SESSION['user_id']; // A bejelentkezett felhasználó ID-ja
+
+// Fajok lekérése
+$racesQuery = "SELECT * FROM races";
+$racesResult = mysqli_query($conn, $racesQuery);
+if (!$racesResult) {
+    die("Hiba a fajok lekérdezésekor: " . mysqli_error($conn));
 }
+$races = mysqli_fetch_all($racesResult, MYSQLI_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $characterName = $_POST['name'];
-    $raceId = (int)$_POST['race'];
-    $subraceId = isset($_POST['subrace']) ? (int)$_POST['subrace'] : null;
-    $classId = (int)$_POST['class'];
-    $subclassId = isset($_POST['subclass']) ? (int)$_POST['subclass'] : null;
-
-    // Validate subrace belongs to race
-    if ($subraceId) {
-        $validSubraces = getSubracesForRace($raceId, $subraces);
-        $validSubraceIds = array_column($validSubraces, 'id');
-        if (!in_array($subraceId, $validSubraceIds)) {
-            die("Invalid subrace selected for the chosen race.");
-        }
-    }
-
-    // Validate subclass belongs to class
-    if ($subclassId) {
-        $validSubclasses = getSubclassesForClass($classId, $subclasses);
-        $validSubclassIds = array_column($validSubclasses, 'id');
-        if (!in_array($subclassId, $validSubclassIds)) {
-            die("Invalid subclass selected for the chosen class.");
-        }
-    }
-
-    // Insert character into the database
-    $stmt = $pdo->prepare(
-        "INSERT INTO characters (name, race_id, subrace_id, class_id, subclass_id) VALUES (?, ?, ?, ?, ?)"
-    );
-    $stmt->execute([$characterName, $raceId, $subraceId, $classId, $subclassId]);
-
-    echo "Character successfully created!";
+// Kasztok lekérése
+$classesQuery = "SELECT * FROM classes";
+$classesResult = mysqli_query($conn, $classesQuery);
+if (!$classesResult) {
+    die("Hiba a kasztok lekérdezésekor: " . mysqli_error($conn));
 }
+$classes = mysqli_fetch_all($classesResult, MYSQLI_ASSOC);
+
+// Ha karakter már létezik a session-ban, akkor megjelenítjük
+$character = isset($_SESSION['generated_character']) ? $_SESSION['generated_character'] : null;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Character</title>
-    <script>
-        function updateSubraces() {
-            const raceId = document.getElementById('race').value;
-            const subraceSelect = document.getElementById('subrace');
-            const subraces = <?php echo json_encode($subraces); ?>;
-
-            subraceSelect.innerHTML = '<option value="">None</option>';
-            subraces.forEach(subrace => {
-                if (subrace.race_id == raceId) {
-                    subraceSelect.innerHTML += `<option value="${subrace.id}">${subrace.name}</option>`;
-                }
-            });
+    <title>Karakter Generálása</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
         }
-
-        function updateSubclasses() {
-            const classId = document.getElementById('class').value;
-            const subclassSelect = document.getElementById('subclass');
-            const subclasses = <?php echo json_encode($subclasses); ?>;
-
-            subclassSelect.innerHTML = '<option value="">None</option>';
-            subclasses.forEach(subclass => {
-                if (subclass.class_id == classId) {
-                    subclassSelect.innerHTML += `<option value="${subclass.id}">${subclass.name}</option>`;
-                }
-            });
+        .character {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-    </script>
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .stat-field {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Generate a DnD Character</h1>
-    <form method="POST">
-        <label for="name">Character Name:</label>
-        <input type="text" id="name" name="name" required><br>
+    <h1>Karakter Generáló</h1>
 
-        <label for="race">Race:</label>
-        <select id="race" name="race" onchange="updateSubraces()" required>
-            <option value="">Select a Race</option>
+    <!-- Ha karakter létezik a session-ban, megjelenítjük -->
+    <?php if ($character): ?>
+        <div class="character">
+            <h2><?php echo htmlspecialchars($character['name']); ?></h2>
+            <p>Faj: <?php echo htmlspecialchars($character['race']); ?></p>
+            <p>Kaszt: <?php echo htmlspecialchars($character['class']); ?></p>
+            <p>Alrészfaj: <?php echo htmlspecialchars($character['subrace']); ?></p>
+            <p>Alosztály: <?php echo htmlspecialchars($character['subclass']); ?></p>
+        </div>
+        <?php unset($_SESSION['generated_character']); ?>
+    <?php endif; ?>
+
+    <form method="POST" action="save_character.php">
+        <label for="name">Karakter Neve:</label>
+        <input type="text" id="name" name="name" value="<?php echo isset($character) ? htmlspecialchars($character['name']) : ''; ?>" placeholder="Add meg a karaktered nevét" required>
+        <br><br>
+
+        <label for="race">Faj:</label>
+        <select id="race" name="race" required>
+            <option value="">Válassz egy fajt</option>
             <?php foreach ($races as $race): ?>
-                <option value="<?php echo $race['id']; ?>"><?php echo $race['name']; ?></option>
+                <option value="<?php echo $race['id']; ?>" <?php echo (isset($character) && $character['race'] == $race['id']) ? 'selected' : ''; ?>>
+                    <?php echo $race['name']; ?>
+                </option>
             <?php endforeach; ?>
-        </select><br>
+        </select>
+        <br><br>
 
-        <label for="subrace">Subrace:</label>
-        <select id="subrace" name="subrace">
-            <option value="">None</option>
-        </select><br>
-
-        <label for="class">Class:</label>
-        <select id="class" name="class" onchange="updateSubclasses()" required>
-            <option value="">Select a Class</option>
+        <label for="class">Kaszt:</label>
+        <select id="class" name="class" required>
+            <option value="">Válassz egy kasztot</option>
             <?php foreach ($classes as $class): ?>
-                <option value="<?php echo $class['id']; ?>"><?php echo $class['name']; ?></option>
+                <option value="<?php echo $class['id']; ?>" <?php echo (isset($character) && $character['class'] == $class['id']) ? 'selected' : ''; ?>>
+                    <?php echo $class['name']; ?>
+                </option>
             <?php endforeach; ?>
-        </select><br>
+        </select>
+        <br><br>
 
-        <label for="subclass">Subclass:</label>
+        <label for="subrace">Alrészfaj:</label>
+        <select id="subrace" name="subrace">
+            <option value="">Válassz egy alrészfajt</option>
+            <!-- Alrészfajok betöltése -->
+        </select>
+        <br><br>
+
+        <label for="subclass">Alosztály:</label>
         <select id="subclass" name="subclass">
-            <option value="">None</option>
-        </select><br>
+            <option value="">Válassz egy alosztályt</option>
+            <!-- Alosztályok betöltése -->
+        </select>
+        <br><br>
 
-        <button type="submit">Generate Character</button>
+        <h3>Statok</h3>
+        <div class="stat-field">
+            <label for="str">Erő (STR):</label>
+            <input type="number" id="str" name="str" value="10" min="1" max="20" required>
+        </div>
+
+        <div class="stat-field">
+            <label for="dex">Dexteritás (DEX):</label>
+            <input type="number" id="dex" name="dex" value="10" min="1" max="20" required>
+        </div>
+
+        <div class="stat-field">
+            <label for="con">Konstrukt (CON):</label>
+            <input type="number" id="con" name="con" value="10" min="1" max="20" required>
+        </div>
+
+        <div class="stat-field">
+            <label for="int">Intelligencia (INT):</label>
+            <input type="number" id="int" name="int" value="10" min="1" max="20" required>
+        </div>
+
+        <div class="stat-field">
+            <label for="wis">Bölcsesség (WIS):</label>
+            <input type="number" id="wis" name="wis" value="10" min="1" max="20" required>
+        </div>
+
+        <div class="stat-field">
+            <label for="cha">Karizma (CHA):</label>
+            <input type="number" id="cha" name="cha" value="10" min="1" max="20" required>
+        </div>
+
+        <br><br>
+        <button type="submit">Karakter Generálása</button>
     </form>
+
+<script>
+    // Alrészfajok és alosztályok betöltése
+    document.getElementById('race').addEventListener('change', loadSubraces);
+    document.getElementById('class').addEventListener('change', loadSubclasses);
+
+    function loadSubraces() {
+        const raceId = document.getElementById('race').value;
+        const subraceSelect = document.getElementById('subrace');
+
+        if (raceId) {
+            fetch(`get_subraces.php?race_id=${raceId}`)
+                .then(response => response.json())
+                .then(subraces => {
+                    subraceSelect.innerHTML = '<option value="">Válassz egy alrészfajt</option>';
+                    subraces.forEach(subrace => {
+                        const option = document.createElement('option');
+                        option.value = subrace.id;
+                        option.textContent = subrace.name;
+                        subraceSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Hiba történt alrészfajok betöltésekor:', error));
+        } else {
+            subraceSelect.innerHTML = '<option value="">Válassz egy alrészfajt</option>';
+        }
+    }
+
+    function loadSubclasses() {
+        const classId = document.getElementById('class').value;
+        const subclassSelect = document.getElementById('subclass');
+
+        if (classId) {
+            fetch(`get_subclasses.php?class_id=${classId}`)
+                .then(response => response.json())
+                .then(subclasses => {
+                    subclassSelect.innerHTML = '<option value="">Válassz egy alosztályt</option>';
+                    subclasses.forEach(subclass => {
+                        const option = document.createElement('option');
+                        option.value = subclass.id;
+                        option.textContent = subclass.name;
+                        subclassSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Hiba történt alosztályok betöltésekor:', error));
+        } else {
+            subclassSelect.innerHTML = '<option value="">Válassz egy alosztályt</option>';
+        }
+    }
+</script>
+
 </body>
 </html>
