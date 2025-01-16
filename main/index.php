@@ -12,6 +12,9 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     $user_id = $_SESSION['user_id'];
     $username = $_SESSION['username'];
 
+    // Store the profile image URL in session (assume profile picture is already set in the session)
+    $profil_img['profile_picture'] = $_SESSION['profile_picture']; 
+    
     // Optional: verify token if using cookie for added security
     if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
         // Invalidate session if the token does not match
@@ -21,9 +24,9 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         exit();
     }
 }
-
-// Now you can use $user_id, $username, and other session variables
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -42,7 +45,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 </head>
 <body>
 
-    
 <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
@@ -56,20 +58,20 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="character.php">Characters</a>
+                <a class="nav-link active" aria-current="page" href="../character.php">Characters</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="wiki.php">Wiki</a>
+                <a class="nav-link active" aria-current="page" href="../wiki.php">Wiki</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="dmTools.php">DM Tools</a>
+                <a class="nav-link active" aria-current="page" href="../dmTools.php">DM Tools</a>
               </li>
 
             </ul>
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>
                 <!-- If the user is logged in, the profile button with their username and image will be shown -->
-                <a style="display: block; color:yellow;" id="Logged" href="profil.php" >
+                <a style="display: block; color:yellow;" id="Logged" href="../profile/profil.php" >
                     <!-- Display the user's profile image -->
                     <img class="profKep" id="profkep" 
                         src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Image">
@@ -85,11 +87,77 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 </nav>
 
 
+    <main>
+        <h1>Welcome to the D&D Website</h1>
+        <p>Your one-stop destination for all things Dungeons & Dragons.</p>
+    </main>
+
+
+    <div class="slideshow-container">
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Weapons</h3></div>
+        </a>
+    </div>
+    
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Stories</h3></div>
+        </a>
+    </div>
+    
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Maps</h3></div>
+        </a>
+    </div>
+    
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Enemies</h3></div>
+        </a>
+    </div>
+    
+    <div class="mySlides fade">
+        <a href="">
+            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
+            <div class="text"><h3>Custom Races</h3></div>
+        </a>
+    </div>
+</div>
+
+<br>
+
+<div style="text-align:center">
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+</div>
 
 
 
 
-      <footer class="footer mt-auto py-3 ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer mt-auto py-3 ">
       <div class="container">
         <span class="">Đ&Đ Ultimate Tools</span>
       </div>

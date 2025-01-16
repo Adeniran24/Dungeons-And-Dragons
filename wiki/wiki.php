@@ -12,9 +12,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     $user_id = $_SESSION['user_id'];
     $username = $_SESSION['username'];
 
-    // Store the profile image URL in session (assume profile picture is already set in the session)
-    $profil_img['profile_picture'] = $_SESSION['profile_picture']; 
-    
     // Optional: verify token if using cookie for added security
     if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
         // Invalidate session if the token does not match
@@ -24,9 +21,9 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         exit();
     }
 }
+
+// Now you can use $user_id, $username, and other session variables
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -42,9 +39,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-</head>
-<body>
-
+    
 <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
@@ -85,79 +80,81 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         </div>
     </div>
 </nav>
+</head>
 
 
-    <main>
-        <h1>Welcome to the D&D Website</h1>
-        <p>Your one-stop destination for all things Dungeons & Dragons.</p>
-    </main>
 
-
-    <div class="slideshow-container">
-    <div class="mySlides fade">
-        <a href="">
-            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
-            <div class="text"><h3>Custom Weapons</h3></div>
-        </a>
-    </div>
     
-    <div class="mySlides fade">
-        <a href="">
-            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
-            <div class="text"><h3>Custom Stories</h3></div>
-        </a>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* Maximum 6 oszlop egy sorban */
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .container a {
+            display: block;
+            text-align: center;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .container img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s ease;
+        }
+        .container img:hover {
+            transform: scale(1.1);
+            border-color: #007BFF;
+        }
+        .container a:hover {
+            color: #007BFF;
+        }
+    </style>
+
+<body>
+    <div class="container">
+        <?php
+        $items = [
+            ['src' => 'image1.jpg', 'link' => 'wikiSubPages/spells/spells.php', 'name' => 'Spells'],
+            ['src' => 'image2.jpg', 'link' => 'https://example.com/page2', 'name' => 'Races'],
+            ['src' => 'image3.jpg', 'link' => 'https://example.com/page3', 'name' => 'Background'],
+            ['src' => 'image4.jpg', 'link' => 'https://example.com/page4', 'name' => 'Heroic Chronicle'],
+            ['src' => 'image5.jpg', 'link' => 'https://example.com/page5', 'name' => 'Classes'],
+            ['src' => 'image6.jpg', 'link' => 'https://example.com/page6', 'name' => 'Items'],
+            ['src' => 'image7.jpg', 'link' => 'https://example.com/page7', 'name' => 'Feats'],
+            ['src' => 'image8.jpg', 'link' => 'https://example.com/page8', 'name' => 'Racial Feats'],
+            ['src' => 'image9.jpg', 'link' => 'https://example.com/page9', 'name' => 'Miscellaneous'],
+            ['src' => 'image10.jpg', 'link' => 'https://example.com/page10', 'name' => 'Homebrew'],
+            ['src' => 'image11.jpg', 'link' => 'https://example.com/page11', 'name' => 'UA'],
+        ];
+
+        foreach ($items as $item) {
+            echo '<a href="' . $item['link'] . '">';
+            echo '<img src="' . $item['src'] . '" alt="' . $item['name'] . '">';
+            echo '<p>' . $item['name'] . '</p>';
+            echo '</a>';
+        }
+        ?>
     </div>
-    
-    <div class="mySlides fade">
-        <a href="">
-            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
-            <div class="text"><h3>Custom Maps</h3></div>
-        </a>
-    </div>
-    
-    <div class="mySlides fade">
-        <a href="">
-            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
-            <div class="text"><h3>Custom Enemies</h3></div>
-        </a>
-    </div>
-    
-    <div class="mySlides fade">
-        <a href="">
-            <img src="https://soliloquywp.com/wp-content/uploads/2017/05/randomize-wordpress-slider-images.png" style="width:100%">
-            <div class="text"><h3>Custom Races</h3></div>
-        </a>
-    </div>
-</div>
-
-<br>
-
-<div style="text-align:center">
-    <span class="dot"></span> 
-    <span class="dot"></span> 
-    <span class="dot"></span> 
-    <span class="dot"></span> 
-    <span class="dot"></span> 
-</div>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <footer class="footer mt-auto py-3 ">
+      <footer class="footer mt-auto py-3 ">
       <div class="container">
         <span class="">Đ&Đ Ultimate Tools</span>
       </div>

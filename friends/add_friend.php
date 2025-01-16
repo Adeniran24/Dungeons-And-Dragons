@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'connect.php';
+require_once '../connect.php';
 
 // Check if friend_id is provided
 if (isset($_POST['friend_id'])) {

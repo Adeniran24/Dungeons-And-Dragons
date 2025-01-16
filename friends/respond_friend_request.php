@@ -1,5 +1,5 @@
 <?php
-require_once 'connect.php';
+require_once '../connect.php';
 
 session_start();
 
@@ -43,6 +43,6 @@ if (isset($_POST['friend_request_id']) && isset($_POST['action'])) {
         echo "Friend request denied.";
     }
 }
-header("Location: profil.php"); // Redirect back to profile or requests page
+header("Location: ../profile/profil.php"); // Redirect back to profile or requests page
 exit();
 ?>

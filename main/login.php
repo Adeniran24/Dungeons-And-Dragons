@@ -1,7 +1,7 @@
 <?php
 session_start();
-require 'connect.php';
-
+// Include the database connection, the connect.php is in the parent directory
+require '../connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get POST variables
     $email = trim($_POST['email']);

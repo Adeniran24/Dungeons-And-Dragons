@@ -1,6 +1,6 @@
 <?php
 // Adatbázis kapcsolat betöltése
-require 'connect.php';
+require '../connect.php';
 
 // Ellenőrizzük, hogy a kaszt id át lett adva
 if (isset($_GET['class_id'])) {

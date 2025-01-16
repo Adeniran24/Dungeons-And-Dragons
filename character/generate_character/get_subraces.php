@@ -1,6 +1,6 @@
 <?php
 // Adatbázis kapcsolat betöltése
-require 'connect.php';
+require '../connect.php';
 
 // Ellenőrizzük, hogy a faj id át lett adva
 if (isset($_GET['race_id'])) {

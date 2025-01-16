@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once 'connect.php';
+require_once '../connect.php';
 
 // Check if the user is logged in by verifying session variables
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
     // If the user is not logged in, redirect to login page
-    header("Location: login.php");
+    header("Location: ../main/login.php");
     exit();
 } else {
     // The user is logged in, you can use the session variables
@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         // Invalidate session if the token does not match
         session_unset();
         session_destroy();
-        header("Location: login.php");
+        header("Location: ../main/login.php");
         exit();
     }
 }

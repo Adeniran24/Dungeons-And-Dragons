@@ -11,7 +11,7 @@
     // Check if the user is logged in by verifying session variables
     if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         // If the user is not logged in, redirect to login page
-        header("Location: login.php");
+        header("Location: ../main/login.php");
         exit();
     } else {
         // The user is logged in, you can use the session variables
@@ -28,7 +28,7 @@
             // Invalidate session if the token does not match
             session_unset();
             session_destroy();
-            header("Location: login.php");
+            header("Location: ../main/login.php");
             exit();
         }
     }
@@ -36,7 +36,7 @@
 
 
     // Fetch the list of friends from the database
-    require_once 'connect.php'; // Include your database connection
+    require_once '../connect.php'; // Include your database connection
 
     $friends = [];
     if ($is_logged_in) {
@@ -83,13 +83,13 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="character.php">Characters</a>
+                <a class="nav-link active" aria-current="page" href="../character.php">Characters</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="wiki.php">Wiki</a>
+                <a class="nav-link active" aria-current="page" href="../wiki.php">Wiki</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="dmTools.php">DM Tools</a>
+                <a class="nav-link active" aria-current="page" href="../dmTools.php">DM Tools</a>
               </li>
               
             </ul>
@@ -106,7 +106,7 @@
     </div>
     <!-- Profile Box -->
     <div class="profile-box col-md-6">
-        <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
+        <img src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? '../defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="profile-pic">
         <h2 class="username"><?php echo $username; ?></h2>
         <p class="registration-date">Joined on: <?php echo $_SESSION['registration_date']; ?></p>
         <button class="change-pic-btn" onclick="openModal()">Change Picture</button>
@@ -123,7 +123,7 @@
                 <?php
                 // Fetch all images from the ./defaults directory
     
-                $directory = './defaults/';
+                $directory = '../defaults/';
                 $images = glob($directory . "*.jpg"); // Adjust extension as needed (e.g., .png, .jpeg)
     
                 foreach ($images as $image) {
@@ -142,7 +142,7 @@
         <ul class="friends_lista">
             <?php foreach ($friends as $friend): ?>
                 <li class="friend">
-                    <img src="<?php echo htmlspecialchars($friend['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="friend-pic">
+                    <img src="<?php echo htmlspecialchars($friend['profile_picture'] ?? '../defaults/profile_picture.jpg'); ?>" alt="Profile Picture" class="friend-pic">
                     <div class="friend-info">
                         <span class="friend-name"><?php echo htmlspecialchars($friend['username']); ?></span>
                         <span class="friend-status <?php echo ($friend['status'] === 'Online') ? 'Online' : 'Offline'; ?>">
@@ -257,7 +257,7 @@
         <div>
             <h3>Your Characters</h3>
             <?php if (empty($characters)): ?>
-                <p>You have no characters yet. <a href="create_character.php">Create one now</a>.</p>
+                <p>You have no characters yet. <a href="../character/generate_character/generate_character.php">Create one now</a>.</p>
             <?php else: ?>
                 <ul>
                     <?php foreach ($characters as $character): ?>

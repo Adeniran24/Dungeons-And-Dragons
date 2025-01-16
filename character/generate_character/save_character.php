@@ -1,11 +1,11 @@
 <?php
 // Adatbázis kapcsolat betöltése
-require 'connect.php';
+require '../connect.php';
 session_start(); // Session elindítása
 
 // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../main/login.php");
     exit();
 }
 
