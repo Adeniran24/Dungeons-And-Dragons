@@ -58,10 +58,10 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../character.php">Characters</a>
+                <a class="nav-link active" aria-current="page" href="../character/character.php">Characters</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../wiki.php">Wiki</a>
+                <a class="nav-link active" aria-current="page" href="../wiki/wiki.php">Wiki</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="../dmTools.php">DM Tools</a>

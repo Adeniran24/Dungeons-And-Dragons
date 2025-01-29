@@ -31,7 +31,7 @@ if (isset($_POST['friend_id'])) {
 
     if ($stmt->execute()) {
         echo "Friend request sent!";
-        header("Location: profil.php");
+        header("Location: ../profile/profil.php");
     } else {
         echo "Error sending friend request: " . $conn->error;
     }

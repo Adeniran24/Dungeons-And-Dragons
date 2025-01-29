@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connect.php';
+require '../connect.php';
 
 // Ensure the user is logged in
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {

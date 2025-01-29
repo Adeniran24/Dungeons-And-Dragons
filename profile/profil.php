@@ -75,7 +75,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
-        <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
+        <a class="navbar-brand" href="../main/index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
         D&D Ultimate Tool
         </a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -153,7 +153,7 @@
             <?php endforeach; ?>
         </ul>
         <!-- HTML for search results -->
-        <form action="search_friends.php" method="GET">
+        <form action="../friends/search_friends.php" method="GET">
         <input type="text" name="search" placeholder="Search for friends" />
         <button type="submit">Search</button>
         </form>
@@ -165,7 +165,7 @@
                 <li>
                     <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
                     <?php echo htmlspecialchars($user['username']); ?>
-                    <form action="add_friend.php" method="POST">
+                    <form action="../friends/add_friend.php" method="POST">
                         <input type="hidden" name="friend_id" value="<?php echo $user['id']; ?>" />
                         <button type="submit">Add Friend</button>
                     </form>
