@@ -139,7 +139,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
                 <?php endif; ?>
             </div>
             <?php
-        include 'connect.php';
+        include '../connect.php';
         // Fetch the user's characters
         $characters = [];
         $stmt = $conn->prepare("
@@ -175,7 +175,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         ?>
 
         <div class="col-md-3" id="plus">
-        <a href="generate_character.php"><button class="plus-button"></button><h3>Create Character</h3></a>
+        <a href="./generate_character/generate_character.php"><button class="plus-button"></button><h3>Create Character</h3></a>
         </div>
         <style>
             #plus {
