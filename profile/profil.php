@@ -61,9 +61,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D&D Website</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../main/index.css">
     <link rel="stylesheet" href="profil.css">  
-    <script src="index.js"></script>
+    <script src="../main/index.js"></script>
     <script src="profil.js"></script>
 
 
@@ -110,7 +110,7 @@
         <h2 class="username"><?php echo $username; ?></h2>
         <p class="registration-date">Joined on: <?php echo $_SESSION['registration_date']; ?></p>
         <button class="change-pic-btn" onclick="openModal()">Change Picture</button>
-        <a href="logout.php" class="logout-btn">Logout</a>
+        <a href="../main/logout.php" class="logout-btn">Logout</a>
     </div>
     
     
