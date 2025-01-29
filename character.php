@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file
-include 'db_connection.php';
+include 'connect.php';
 
 // Function to fetch options from a table
 function fetchOptions($conn, $table) {
