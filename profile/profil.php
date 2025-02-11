@@ -146,9 +146,14 @@
                     <div class="friend-info">
                         <span class="friend-name"><?php echo htmlspecialchars($friend['username']); ?></span>
                         <span class="friend-status <?php echo ($friend['status'] === 'Online') ? 'Online' : 'Offline'; ?>">
-                            <?php echo htmlspecialchars($friend['status']); ?>
+                        <?php echo htmlspecialchars($friend['status']); ?> 
+                        </div>
+                        <form action="../friends/remove_friend.php" method="POST" onsubmit="return confirm('Are you sure you want to remove this friend?');">
+                            <input type="hidden" name="friend_id" value="<?php echo $friend['id']; ?>">
+                            <button type="submit">Remove Friend</button>
+                        </form>
                         </span>
-                    </div>
+                    
                 </li>
             <?php endforeach; ?>
         </ul>

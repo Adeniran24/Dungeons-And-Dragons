@@ -21,6 +21,7 @@ if (isset($_POST['friend_id'])) {
 
     if ($check_result->num_rows > 0) {
         echo "Friend request already sent or already friends!";
+        header("Location: ./search_friends.php");
         exit();
     }
     $check_stmt->close();
@@ -34,6 +35,7 @@ if (isset($_POST['friend_id'])) {
         header("Location: ../profile/profil.php");
     } else {
         echo "Error sending friend request: " . $conn->error;
+        header("Location: ./search_friends.php");
     }
 
     $stmt->close();

@@ -124,7 +124,7 @@ if (isset($_GET['search'])) {
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>
                 <!-- If the user is logged in, the profile button with their username and image will be shown -->
-                <a style="display: block; color:yellow;" id="Logged" href="../main/profil.php" >
+                <a style="display: block; color:yellow;" id="Logged" href="../profile/profil.php" >
                     <!-- Display the user's profile image -->
                     <img class="profKep" id="profkep" 
                         src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? './defaults/profile_picture.jpg'); ?>" alt="Profile Image">
