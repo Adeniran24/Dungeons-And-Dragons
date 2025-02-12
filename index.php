@@ -1,5 +1,5 @@
 <?php
-header("Location: ../main/index.php");
+header("Location: ./main/index.php");
 exit;
 ?>
 <!DOCTYPE html>

@@ -86,14 +86,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 
     
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
         .container {
             display: grid;
             grid-template-columns: repeat(6, 1fr); /* Maximum 6 oszlop egy sorban */
