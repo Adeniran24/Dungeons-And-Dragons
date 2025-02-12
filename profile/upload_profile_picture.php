@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connect.php';
+require '../connect.php';
 
 // Ensure the user is logged in
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
     // Validate the file type and size
     $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
     $max_size = 5 * 1024 * 1024;  // 5 MB
-    $upload_dir = './uploads/';
+    $upload_dir = '../uploads/';
 
     if (!in_array($file['type'], $allowed_types)) {
         echo "Invalid file type. Only JPG, JPEG, and PNG files are allowed.";

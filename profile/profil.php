@@ -61,9 +61,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D&D Website</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../main/index.css">
     <link rel="stylesheet" href="profil.css">  
-    <script src="index.js"></script>
+    <script src="../main/index.js"></script>
     <script src="profil.js"></script>
 
 
@@ -75,7 +75,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
-        <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
+        <a class="navbar-brand" href="../main/index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
         D&D Ultimate Tool
         </a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -110,7 +110,7 @@
         <h2 class="username"><?php echo $username; ?></h2>
         <p class="registration-date">Joined on: <?php echo $_SESSION['registration_date']; ?></p>
         <button class="change-pic-btn" onclick="openModal()">Change Picture</button>
-        <a href="logout.php" class="logout-btn">Logout</a>
+        <a href="../main/logout.php" class="logout-btn">Logout</a>
     </div>
     
     
@@ -146,14 +146,19 @@
                     <div class="friend-info">
                         <span class="friend-name"><?php echo htmlspecialchars($friend['username']); ?></span>
                         <span class="friend-status <?php echo ($friend['status'] === 'Online') ? 'Online' : 'Offline'; ?>">
-                            <?php echo htmlspecialchars($friend['status']); ?>
+                        <?php echo htmlspecialchars($friend['status']); ?> 
+                        </div>
+                        <form action="../friends/remove_friend.php" method="POST" onsubmit="return confirm('Are you sure you want to remove this friend?');">
+                            <input type="hidden" name="friend_id" value="<?php echo $friend['id']; ?>">
+                            <button type="submit">Remove Friend</button>
+                        </form>
                         </span>
-                    </div>
+                    
                 </li>
             <?php endforeach; ?>
         </ul>
         <!-- HTML for search results -->
-        <form action="search_friends.php" method="GET">
+        <form action="../friends/search_friends.php" method="GET">
         <input type="text" name="search" placeholder="Search for friends" />
         <button type="submit">Search</button>
         </form>
@@ -165,7 +170,7 @@
                 <li>
                     <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
                     <?php echo htmlspecialchars($user['username']); ?>
-                    <form action="add_friend.php" method="POST">
+                    <form action="../friends/add_friend.php" method="POST">
                         <input type="hidden" name="friend_id" value="<?php echo $user['id']; ?>" />
                         <button type="submit">Add Friend</button>
                     </form>

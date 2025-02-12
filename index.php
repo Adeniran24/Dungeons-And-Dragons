@@ -1,5 +1,5 @@
 <?php
-header("Location: http://adeniran.shop/main");
+header("Location: ./main/index.php");
 exit;
 ?>
 <!DOCTYPE html>

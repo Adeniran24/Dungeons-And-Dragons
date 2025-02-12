@@ -195,3 +195,28 @@
 .change-pic-btn:hover {
     background-color: #0056b3;
 }
+
+.remove_btn {
+    background-color: #ff4c4c;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    width: 45%;
+    display: block;
+    margin-top: 10px;
+}
+
+
+
+    // Update the friendship status to 'Removed' for both users
+$stmt = $conn->prepare("
+    UPDATE friends
+    SET status = 'Removed'
+    WHERE (user_id = ? AND friend_id = ?)
+       OR (user_id = ? AND friend_id = ?)
+");
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
