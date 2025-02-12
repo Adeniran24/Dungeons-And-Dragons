@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </p>
             <input type="submit" class="btn btn-success w-100" value="Sign In" name="signIn">
             <p class="or">
-                ----------or--------
+                ---------or---------
             </p>
             <div class="links text-center">
                 <p>Don't have an account yet?</p>
