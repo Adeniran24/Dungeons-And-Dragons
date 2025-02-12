@@ -1,3 +1,31 @@
+<?php
+session_start(); // Start the session
+
+// Check if the user is logged in by verifying session variables
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
+    // If the user is not logged in, redirect to login page
+    header("Location: ../main/login.php");
+    exit();
+} else {
+    // The user is logged in, you can use the session variables
+    $is_logged_in = true;
+    $user_id = $_SESSION['user_id'];
+    $username = $_SESSION['username'];
+
+    // Store the profile image URL in session (assume profile picture is already set in the session)
+    $profil_img['profile_picture'] = $_SESSION['profile_picture']; 
+    
+    // Optional: verify token if using cookie for added security
+    if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
+        // Invalidate session if the token does not match
+        session_unset();
+        session_destroy();
+        header("Location: ../main/login.php");
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,9 +37,18 @@
       content="Levi Blodgett, D&D, D&D Character Generator, Dungeons and Dragons, Dungeons and Dragons Character Generator"
     />
     <link rel="icon" type="image/ico" href="img/favicon.png" />
-    <link href="styles.css" rel="stylesheet" />
-    <title>5e Character Generator</title>
+    <link href=".../main/styles.css" rel="stylesheet" />
   </head>
+    <title>D&D Website</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+<body>
 
   <body id="top">
     <!-- Top button section, which is all centered and  not shown on print screen -->
@@ -3933,198 +3970,7 @@
       </div>
     </div>
 
-    <!-- HTML block for the last page -->
-    <div id="lastPage" class="no-print">
-      <div id="row">
-        <div class="text_below cell_A">
-          <br />
-          <h1>How can I use it?</h1>
-          <br />
-          <h2>Editing</h2>
-          <p>
-            You can edit in the browser before you save it as a PDF or after,
-            using a PDF editor, it detects every field that you can edit in the
-            browser, but it is less pretty to use a PDF editor.
-          </p>
-          <br />
-          <h2>Saving as PDF</h2>
-          <p>
-            Delete anything you don't want to be permanently on it, use CTRL+P
-            and select save it as a PDF, save.
-          </p>
-          <p>
-            Depending on the browser, it will say save it as a PDF or print it
-            as a PDF, either will save it as a PDF.
-          </p>
-          <br />
-          <h2>Printing</h2>
-          <p>
-            Delete anything you don't want to be permanently on it, use CTRL+P
-            and select your printer, print.
-          </p>
-          <p>
-            Also, make sure that headers and footers are toggled off for
-            printing.
-          </p>
-          <br />
-          <h2>Uses</h2>
-          <p>
-            1. Writing prompt/ideas for characters <br />2. Making a first level
-            character and you want to have everything already input <br />3.
-            DM's making new characters for their PC's to interact with and have
-            them documented <br />4. Use it to merely copy your character onto
-            paper with, if you need something to erase by hand
-            <br />
-            <br />etc.
-          </p>
-          <br />
-          <h2>Device-support</h2>
-          <p>It should automatically adjust very well to any screen size.</p>
-          <br />
-          <h2>Vanilla 5e</h2>
-          <p>
-            The only thing I added outside of the PHB was 2 Cleric domains to
-            balance it out statistically by the builds.<br />
-            There are three builds in here for clerics, dex, wis, and
-            str-focused. Each has 3 domains inside of it that are possible.<br />
-            I added death and arcana to make it so all had 3 each, so it was
-            statistically as likely to get any of them.<br />
-            Other than those two domains, everything in this generator is
-            vanilla 5e.
-            <br />
-          </p>
-        </div>
-
-        <div class="text_below cell_B">
-          <br />
-          <h1>How does it work?</h1>
-          <br />
-          <h2>Logical Version</h2>
-          <p>
-            The logical version builds a character that is cohesive together,
-            based on your stats, if anything can be random in this version and
-            still make sense, it is.
-          </p>
-          <br />
-          <h2>Random Version</h2>
-          <p>
-            The COMPLETELY random version of the generator. Every element inside
-            of this version is random.
-          </p>
-          <br />
-          <h2>Options</h2>
-          <p>
-            You are able to choose from various options like race, class,
-            background, and alignment to accommodate any specific game setting,
-            but I would suggest using all random for a truly random experience.
-          </p>
-          <br />
-          <h2>Deciding what to pick</h2>
-          <p>
-            After the stats and race are generated, the generator decides how to
-            fill in the rest based on just those two at the start.<br />
-            It goes down a flowchart of possible classes based on the stats, and
-            picks the best one from the stats given, after racial bonuses.
-            <br />
-            It shouldn't give you a class that doesn't fit a build, if a
-            character doesn't have a clear build for a class, it gets
-            replaced.<br />
-            After that it is really just more of the same logic, it takes all
-            the information given to it before the present step and decides.<br />
-            <br />
-            For example, if you have higher dexterity than strength, it'll give
-            you a dextrous weapon if your class starting equipment allows it.<br />
-          </p>
-          <br />
-          <h2>Bugs / Suggestions</h2>
-          <p>
-            There should be no errors, visual bugs, or technical errors, if
-            there is contact me.<br />
-            If you think there is something I could do to make it better, feel
-            free to contact me as well.<br />
-            There is no harm in making a suggestion.
-          </p>
-          <br />
-          <h2>Contact me</h2>
-          <p>
-            Tweet me
-            <a href="https://twitter.com/LeviBlodgett">@LeviBlodgett</a> or
-            email me at Levi_Blodgett@outlook.com.
-          </p>
-        </div>
-        <div id="last_text" class="text_below cell_C">
-          <br />
-          <h1>How does each compare mathematically?</h1>
-          <br />
-          <h2>All 3 versus one other</h2>
-          <p>
-            Here are the facts:<br />
-            Statistically, rolling gives you an average of the highest stats,
-            with the highest ceiling.<br />
-            Standard array has the lowest risk and most consistency.<br />
-            Point buy is the best for the consistent optimization some players
-            seek. <br />
-            (Although this generator has 65 combinations for in random order, so
-            not all combinations are necessarily optimal)<br />
-            <br />
-            Stat total averages:<br />
-            Rolling for stats total stats = 73.47 average<br />
-            Standard array total stats = 72 average<br />
-            Point buy total stats = 72.32 average<br />
-          </p>
-          <br />
-          <h2>Dice roller</h2>
-          <h3>
-            <a href="http://rumkin.com/reference/dnd/diestats.php"
-              >Source to dice math</a
-            >
-          </h3>
-          <p>
-            If I'm rolling 4d6 and taking the highest 3, then the average is
-            12.24. <br />
-            <br />
-            Total stat score = (12.245 * 6) = 73.47<br />
-          </p>
-          <br />
-          <h2>Standard array</h2>
-          <p>
-            If I'm taking the standard array, then the average is 12. <br />
-            <br />
-            Total stat score = ((15 + 14 + 13 + 12 + 10 + 8)/6) = 72<br />
-          </p>
-          <br />
-          <h2>Point Buy</h2>
-          <h3>
-            <a
-              href="https://www.reddit.com/r/DnD/comments/2epkdi/5e_here_is_a_complete_list_of_valid_ability_score/"
-              >Source to complete list of point buy options.</a
-            >
-          </h3>
-          <p>
-            If I'm taking point buy system, there are 65 possible combinations,
-            and I calculated the average below. <br />
-            <br />
-            Total stat score = ((65 combinations added together)/65) = 72.32<br />
-            <br />
-            ((69 + 70(2) + 71(15) + 72(17) + 73(20) + 74(7) + 75(3)) / 65) =
-            72.3231
-          </p>
-          <br />
-          <br />
-          <br />
-        </div>
-      </div>
-    </div>
-    <div id="footer" class="no-print">
-      <a href="#top"
-        ><button class="bottom bottom_button no_select">
-          <img id="arrow no_select" src="img/up-arrow.png" /></button
-      ></a>
-      <p class="bottom bottom_text">
-        Programmed by <br />
-        <a href="https://leviblodgett.com">Levi Blodgett</a>
-      </p>
-    </div>
+    
 
     <div id="scripts">
       <!--- Functions created by the PDF to HTML5 converter, to handle checkboxes -->
