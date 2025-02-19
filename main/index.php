@@ -64,7 +64,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
                 <a class="nav-link active" aria-current="page" href="../wiki/wiki.php">Wiki</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../dmTools.php">DM Tools</a>
+                <a class="nav-link active" aria-current="page" href="../dmtool/dmTools.php">DM Tools</a>
               </li>
 
             </ul>

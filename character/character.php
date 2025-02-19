@@ -175,7 +175,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         ?>
 
         <div class="col-md-3" id="plus">
-        <a href="./generate_character/generate_character.php"><button class="plus-button"></button><h3>Create Character</h3></a>
+        <a href="./generate_character/index.php"><button class="plus-button"></button><h3>Create Character</h3></a>
         </div>
         <style>
             #plus {

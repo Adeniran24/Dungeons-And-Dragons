@@ -26,6 +26,8 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,18 +39,60 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
       content="Levi Blodgett, D&D, D&D Character Generator, Dungeons and Dragons, Dungeons and Dragons Character Generator"
     />
     <link rel="icon" type="image/ico" href="img/favicon.png" />
-    <link href=".../main/styles.css" rel="stylesheet" />
-  </head>
+    <link href="styles.css" rel="stylesheet" />
     <title>D&D Website</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../../main/index.css">
     <script src="index.js"></script>
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-</head>
-<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="../../main/index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
+    D&D Ultimate Tool
+</a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../../character/character.php">Characters</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../../wiki/wiki.php">Wiki</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../../dmtool/dmTools.php">DM Tools</a>
+              </li>
+
+            </ul>
+            <form class="d-flex">
+                <?php if ($is_logged_in): ?>
+                <!-- If the user is logged in, the profile button with their username and image will be shown -->
+                <a style="display: block; color:yellow;" id="Logged" href="../../profile/profil.php" >
+                    <!-- Display the user's profile image -->
+                    <img class="profKep" id="profkep" 
+                        src="<?php echo htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? '../../defaults/profile_picture.jpg')); ?>" alt="Profile Image">
+                        <?php echo htmlspecialchars($username); ?>
+                </a>
+                <?php else: ?>
+                    <!-- Ha nincs bejelentkezve, akkor a Login/Register gomb jelenik meg -->
+                    <a style="display: block;" id="LogReg" class="btn btn-outline-warning" href="../main/login.php">Login/Register</a>
+                <?php endif; ?>
+            </form>
+        </div>
+    </div>
+</nav>
+
+  </head>
+  
 
   <body id="top">
     <!-- Top button section, which is all centered and  not shown on print screen -->
@@ -895,10 +939,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         <div id="t5_1" class="t s1_1">BACKGROUND</div>
         <div id="t6_1" class="t s1_1">EXPERIENCE POINTS</div>
         <div id="t7_1" class="t s1_1">ALIGNMENT</div>
-        <div id="t8_1" class="t s2_1">
-          TM &amp; © 2014 Wizards of the Coast LLC. Permission is granted to
-          photocopy this document for personal use.
-        </div>
+        <div id="t8_1" class="t s2_1"></div>
         <div id="t9_1" class="t s3_1">Hit Point Maximum</div>
         <div id="ta_1" class="t s1_1">Strength</div>
         <div id="tb_1" class="t s1_1">Dexterity</div>
@@ -1911,10 +1952,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         <div id="tc_2" class="t s3_2">ADDITIONAL FEATURES &amp; TRAITS</div>
         <div id="td_2" class="t s3_2">ALLIES &amp; ORGANIZATIONS</div>
         <div id="te_2" class="t s4_2">SYMBOL</div>
-        <div id="tf_2" class="t s5_2">
-          TM &amp; © 2014 Wizards of the Coast LLC. Permission is granted to
-          photocopy this document for personal use.
-        </div>
+        <div id="tf_2" class="t s5_2"></div>
 
         <!-- End text definitions -->
 
@@ -2028,10 +2066,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
         <!-- End page background -->
 
         <!-- Begin text definitions (Positioned/styled in CSS) -->
-        <div id="t1_3" class="t s1_3">
-          TM &amp; © 2014 Wizards of the Coast LLC. Permission is granted to
-          photocopy this document for personal use.
-        </div>
+        <div id="t1_3" class="t s1_3"></div>
         <div id="t2_3" class="t s2_3">SPELLCASTING</div>
         <div id="t3_3" class="t s2_3">CLASS</div>
         <div id="t4_3" class="t m1_3 s3_3">SPELLS KNOWN</div>
@@ -3970,7 +4005,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
       </div>
     </div>
 
-    
+  
 
     <div id="scripts">
       <!--- Functions created by the PDF to HTML5 converter, to handle checkboxes -->
@@ -3991,5 +4026,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
       <!-- Script used for testing purposes -->
       <!-- <script src="build/testing.js"></script> -->
     </div>
+
   </body>
 </html>
