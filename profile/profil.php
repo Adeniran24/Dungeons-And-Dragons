@@ -262,7 +262,7 @@
         <div>
             <h3>Your Characters</h3>
             <?php if (empty($characters)): ?>
-                <p>You have no characters yet. <a href="../character/generate_character/generate_character.php">Create one now</a>.</p>
+                <p>You have no characters yet. <a href="../character/generate_character/index.php">Create one now</a>.</p>
             <?php else: ?>
                 <ul>
                     <?php foreach ($characters as $character): ?>
