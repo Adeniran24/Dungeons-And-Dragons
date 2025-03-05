@@ -11,6 +11,11 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+register_shutdown_function(function() use ($conn) {
+    if ($conn) {
+        $conn->close();
+    }
+});
 
 
 
