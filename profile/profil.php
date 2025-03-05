@@ -178,6 +178,10 @@
             <?php endforeach; ?>
         </ul>
         <?php endif; ?>
+
+        
+        
+        <a href="../social/friends.php" style="text-decoration:none;"><h3>Private Chats</h3></a>
     
     
         <h3>Friend Requests</h3>
@@ -250,7 +254,6 @@
             position: relative;
         }
     </style>
-    
 </div>
 
 
