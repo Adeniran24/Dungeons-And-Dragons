@@ -1,7 +1,7 @@
 <?php
 
 $dbserver = "92.113.22.21";
-$dbusername = "localhost";
+$dbusername = "u963849950_Adeniran";
 $dbpassword = "#vxK0F&BU;s3";
 $dbname = "u963849950_User";
 
