@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Dice Roller</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; text-align: center; }
+        canvas { display: block; }
+        #controls { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); }
+        button { margin: 5px; padding: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <button onclick="rollDice(4)">Roll D4</button>
+        <button onclick="rollDice(6)">Roll D6</button>
+        <button onclick="rollDice(8)">Roll D8</button>
+        <button onclick="rollDice(10)">Roll D10</button>
+        <button onclick="rollDice(12)">Roll D12</button>
+        <button onclick="rollDice(20)">Roll D20</button>
+        <button onclick="rollDice(100)">Roll D100</button>
+    </div>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const world = new CANNON.World();
+        world.gravity.set(0, -9.82, 0);
+
+        const groundBody = new CANNON.Body({ mass: 0, shape: new CANNON.Plane() });
+        groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+        world.addBody(groundBody);
+
+        const diceMeshes = [];
+        const diceBodies = [];
+
+        function createDice(sides) {
+            let geometry;
+            switch (sides) {
+                case 4: geometry = new THREE.TetrahedronGeometry(1); break;
+                case 6: geometry = new THREE.BoxGeometry(1, 1, 1); break;
+                case 8: geometry = new THREE.OctahedronGeometry(1); break;
+                case 10: geometry = new THREE.DodecahedronGeometry(1); break;
+                case 12: geometry = new THREE.IcosahedronGeometry(1); break;
+                case 20: geometry = new THREE.IcosahedronGeometry(1.2); break;
+                case 100: geometry = new THREE.SphereGeometry(1.2, 16, 16); break;
+                default: return;
+            }
+
+            const material = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.5, roughness: 0.2 });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            const body = new CANNON.Body({ mass: 1, shape: new CANNON.Sphere(0.6) });
+            body.position.set(Math.random() * 2 - 1, 5, Math.random() * 2 - 1);
+            world.addBody(body);
+
+            diceMeshes.push(mesh);
+            diceBodies.push(body);
+        }
+
+        function rollDice(sides) {
+            diceMeshes.forEach(mesh => scene.remove(mesh));
+            diceBodies.forEach(body => world.removeBody(body));
+            diceMeshes.length = 0;
+            diceBodies.length = 0;
+            createDice(sides);
+            diceBodies.forEach(body => {
+                body.velocity.set(Math.random() * 5, Math.random() * 5, Math.random() * 5);
+                body.angularVelocity.set(Math.random() * 5, Math.random() * 5, Math.random() * 5);
+            });
+        }
+
+        camera.position.set(0, 5, 10);
+        camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(5, 5, 5);
+        scene.add(light);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            world.step(1 / 60);
+            diceMeshes.forEach((mesh, i) => {
+                mesh.position.copy(diceBodies[i].position);
+                mesh.quaternion.copy(diceBodies[i].quaternion);
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
