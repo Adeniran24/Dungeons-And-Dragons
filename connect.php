@@ -1,24 +1,26 @@
 <?php
+class Database {
+    private $conn;
 
-$dbserver = "92.113.22.21";
-$dbusername = "u963849950_Adeniran";
-$dbpassword = "#vxK0F&BU;s3";
-$dbname = "u963849950_User";
+    public function __construct() {
+        $this->conn = new mysqli("92.113.22.21", "u963849950_Adeniran", "#vxK0F&BU;s3", "u963849950_User");
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
 
-$conn = mysqli_connect($dbserver, $dbusername, $dbpassword, $dbname);
+    public function getConnection() {
+        return $this->conn;
+    }
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+    public function __destruct() {
+        if ($this->conn) {
+            $this->conn->close();
+        }
+    }
 }
 
-register_shutdown_function(function() use ($conn) {
-    if ($conn) {
-        $conn->close();
-    }
-});
-
-
-
-
+$db = new Database();
+$conn = $db->getConnection();
 
 ?>
