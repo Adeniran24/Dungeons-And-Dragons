@@ -59,7 +59,20 @@ include '../session_token.php';
 </nav>
 
 
-
+<div class="container">
+  <div class="row">
+        <div>
+          <a href="./chat_game.php">
+            <h1>Public Chat-room</h1>
+          </a>
+        </div>
+        <div>
+          <a href="./chatR/chat_rooms.php">
+            <h1>Private Chat Rooms</h1>
+          </a>
+        </div>
+  </div>
+</div>
 
 
       <footer class="footer mt-auto py-3 ">
