@@ -1,4 +1,6 @@
 <?php
+require_once 'connect.php';
+
 include '../session_token.php';
 ?>
 

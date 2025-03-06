@@ -1,6 +1,7 @@
 <?php
+require_once '../connect.php';
 include '../session_token.php';
-    include '../connect.php';
+    
 
     //ne töröld ki mert elrontódik a css
 

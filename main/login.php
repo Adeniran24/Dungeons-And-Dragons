@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             setcookie('auth_token', $token, time() + 3600, '/', '', true, true);
 
             // Redirect to home page
-            header("Location: index.php");
+            header("Location: second.php");
             
 
             exit();

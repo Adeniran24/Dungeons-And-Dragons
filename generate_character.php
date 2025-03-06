@@ -3,7 +3,8 @@
 session_start();
 
 // Connect to the database (adjust credentials as needed)
-require 'connect.php';
+require_once 'connect.php';
+
 
 // Check if a race_id is provided in the query string
 if (isset($_GET['race_id'])) {
