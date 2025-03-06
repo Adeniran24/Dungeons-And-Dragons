@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login/Register</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="">
     <script src="index.js"></script>
     <script src="logreg.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -83,16 +83,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="index.css">
+    
 <style>
 </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-        <div class="container-fluid">
-        <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
+<a class="navbar-brand" id="Logo" href="index.php" >
     D&D Ultimate Tool
 </a>
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+
+        
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -167,5 +169,182 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <span class="">Đ&Đ Ultimate Tools</span>
       </div>
     </footer>
+
+    <style>
+    /* Move the Logo to the left side */
+#Logo {
+    position: absolute;
+    left: 10%; /* Adjust left value to make the logo sit comfortably within the navbar */
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    z-index: 1; /* Ensure the logo stays on top of the navbar */
+    color:white; 
+    background-color: rgb(155, 83, 57); 
+    padding: 10px 20px; 
+    border-radius: 25px; 
+    font-family: 'Cinzel', serif; 
+    font-weight: bold;
+    opacity:0,2;
+}
+
+/* Modify the Navbar to cover the logo */
+.navbar {
+    background-color: rgb(155, 83, 57);    
+    padding: 25px 50px; /* Increase padding for a wider navbar */
+    border-radius: 25px;
+    position: relative; /* Ensure it positions properly */
+
+    backdrop-filter: blur(10px); /* Add a blur effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow */
+    opacity: 0.2;
+}
+
+/* Adjust the logo placement to avoid overlap */
+.navbar .container-fluid {
+    display: flex;
+    justify-content: space-between; /* To spread out the elements */
+    align-items: center; /* Ensure the items are vertically centered */
+}
+
+/* Make sure the navbar background covers the logo */
+.navbar-toggler {
+    z-index: 2; /* Ensure it’s above the logo */
+}
+
+
+    .footer {
+        background-color: black;
+        color: white;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .footer a {
+        color: white;
+    }
+
+    .footer a:hover {
+        color: rgb(255, 0, 0);
+    }
+
+    .recover {
+        text-align: right;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+
+    .or {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .valtas {
+        background-color: black;
+        color: white;
+        border: 1px solid white;
+        border-radius: 25px;
+        padding: 5px 10px;
+    }
+
+    .valtas:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .links {
+        margin-top: 10px;
+    }
+
+    .form-title {
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    .input-group-text {
+        background-color: black;
+        color: white;
+    }
+
+    .input-group-text i {
+        color: white;
+    }
+
+    .input-group input {
+        border: 1px solid black;
+    }
+
+    .input-group input:focus {
+        border: 1px solid black;
+    }
+
+    .btn {
+        background-color: black;
+        color: white;
+        border: 1px solid white;
+        border-radius: 25px;
+        padding: 5px 10px;
+    }
+
+    .btn:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .btn-link {
+        color: black;
+        text-decoration: none;
+    }
+
+    .btn-link:hover {
+        color: rgb(255, 0, 0);
+    }
+
+    .container {
+        max-width: 500px;
+    }
+
+    .mt-5 {
+        margin-top: 50px;
+    }
+
+    .mb-3 {
+        margin-bottom: 30px;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .my-5 {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    /* Background image */
+    body {
+        background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20230519/pngtree-room-in-an-old-tavern-image_2571451.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-color: black;
+        color: white;
+    }
+</style>
+
 </body>
 </html>
