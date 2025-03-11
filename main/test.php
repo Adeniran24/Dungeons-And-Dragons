@@ -1,8 +1,8 @@
 <?php
 include '../session_token.php';
-include '../connect.php';
+include '../db_connection.php'; // Include database connection
 
-$sql = "SELECT id, name, range_id, description, level_id, casting_time_id, component_id, duration_id, source_id, spell_type_id FROM spells";
+$sql = "SELECT spells.name, spell_range.description AS range, spells.description, spells.level_id, spells.casting_time_id, spells.component_id, spells.duration_id, spells.source_id, spells.spell_type_id FROM spells INNER JOIN spell_range ON spells.range_id = spell_range.id";
 $result = $conn->query($sql);
 ?>
 
@@ -35,7 +35,7 @@ $result = $conn->query($sql);
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>
                 <a id="Logged" href="../profile/profil.php">
-                    <img class="profKep" id="profkep" src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? '../defaults/profile_picture.jpg'); ?>" alt="Profile Image">
+                    <img class="profKep" id="profkep" src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? '../defaults/profile_picture.jpg']); ?>" alt="Profile Image">
                     <?php echo htmlspecialchars($_SESSION['username']); ?>
                 </a>
                 <?php else: ?>
@@ -51,7 +51,6 @@ $result = $conn->query($sql);
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Range</th>
                 <th>Description</th>
@@ -67,9 +66,8 @@ $result = $conn->query($sql);
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['id']); ?></td>
                         <td><?php echo htmlspecialchars($row['name']); ?></td>
-                        <td><?php echo htmlspecialchars($row['range_id']); ?></td>
+                        <td><?php echo htmlspecialchars($row['range']); ?></td>
                         <td><?php echo htmlspecialchars($row['description']); ?></td>
                         <td><?php echo htmlspecialchars($row['level_id']); ?></td>
                         <td><?php echo htmlspecialchars($row['casting_time_id']); ?></td>
@@ -80,7 +78,7 @@ $result = $conn->query($sql);
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
-                <tr><td colspan="10">No spells found</td></tr>
+                <tr><td colspan="9">No spells found</td></tr>
             <?php endif; ?>
         </tbody>
     </table>
