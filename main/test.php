@@ -2,7 +2,7 @@
 include '../session_token.php';
 include '../db_connection.php'; // Include database connection
 
-$sql = "SELECT spells.name, spell_range.description AS range, spells.description, spells.level_id, spells.casting_time_id, spells.component_id, spells.duration_id, spells.source_id, spells.spell_type_id FROM spells INNER JOIN spell_range ON spells.range_id = spell_range.id";
+$sql = "SELECT spells.name, spell_range.range_description AS range, spells.description, spells.level_id, spells.casting_time_id, spells.component_id, spells.duration_id, spells.source_id, spells.spell_type_id FROM spells INNER JOIN spell_range ON spells.range_id = spell_range.id";
 $result = $conn->query($sql);
 ?>
 
