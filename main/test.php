@@ -11,7 +11,7 @@ $sql = "SELECT
             `spell_range`.`range_description` AS `spell_range_desc`, 
             `spells`.`description`, 
             `spell_level`.`level` AS `spell_level`, 
-            `casting_times`.`description` AS `casting_time_desc`,  <!-- Updated column name -->
+            `casting_times`.`time` AS `casting_time_desc`,  <!-- Updated column name -->
             `components`.`description` AS `components_desc`, 
             `durations`.`description` AS `duration_desc`, 
             `sources`.`name` AS `source_name`, 
@@ -25,7 +25,7 @@ $sql = "SELECT
         LEFT JOIN `sources` ON `spells`.`source_id` = `sources`.`id` 
         LEFT JOIN `spell_types` ON `spells`.`spell_type_id` = `spell_types`.`id`";
 
-echo $sql; // Debugging: Print the query to check for syntax issues
+
 
 $result = $conn->query($sql);
 
