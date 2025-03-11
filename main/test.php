@@ -11,7 +11,7 @@ $sql = "SELECT
             `spell_range`.`range_description` AS `spell_range_desc`, 
             `spells`.`description`, 
             `spell_level`.`level` AS `spell_level`, 
-            `casting_times`.`description` AS `casting_time_desc`, 
+            `casting_times`.`casting_time_description` AS `casting_time_desc`,
             `components`.`description` AS `components_desc`, 
             `durations`.`description` AS `duration_desc`, 
             `sources`.`name` AS `source_name`, 
@@ -23,7 +23,7 @@ $sql = "SELECT
         LEFT JOIN `components` ON `spells`.`component_id` = `components`.`id` 
         LEFT JOIN `durations` ON `spells`.`duration_id` = `durations`.`id` 
         LEFT JOIN `sources` ON `spells`.`source_id` = `sources`.`id` 
-        LEFT JOIN `spell_types` ON `spells`.`spell_type_id` = `spell_types`.`id`";
+        LEFT JOIN `spell_types` ON `spells`.`spell_type_id` = `spell_types`.`id`";   
         
 $result = $conn->query($sql);
 ?>
