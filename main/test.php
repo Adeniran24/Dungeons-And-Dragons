@@ -1,8 +1,26 @@
 <?php
 include '../session_token.php';
-include '../connect.php';
+include '../db_connection.php'; // Include database connection
 
-$sql = "SELECT id, name, range_id, description, level_id, casting_time_id, component_id, duration_id, source_id, spell_type_id FROM spells";
+$sql = "SELECT 
+            spells.name, 
+            spell_range.description AS range, 
+            spells.description, 
+            spell_level.level AS level, 
+            casting_times.description AS casting_time, 
+            components.description AS components, 
+            durations.description AS duration, 
+            sources.name AS source, 
+            spell_types.description AS spell_type 
+        FROM spells 
+        INNER JOIN spell_range ON spells.range_id = spell_range.id 
+        INNER JOIN spell_level ON spells.level_id = spell_level.id 
+        INNER JOIN casting_times ON spells.casting_time_id = casting_times.id 
+        INNER JOIN components ON spells.component_id = components.id 
+        INNER JOIN durations ON spells.duration_id = durations.id 
+        INNER JOIN sources ON spells.source_id = sources.id 
+        INNER JOIN spell_types ON spells.spell_type_id = spell_types.id";
+
 $result = $conn->query($sql);
 ?>
 
@@ -35,7 +53,7 @@ $result = $conn->query($sql);
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>
                 <a id="Logged" href="../profile/profil.php">
-                    <img class="profKep" id="profkep" src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? '../defaults/profile_picture.jpg'); ?>" alt="Profile Image">
+                    <img class="profKep" id="profkep" src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? '../defaults/profile_picture.jpg']); ?>" alt="Profile Image">
                     <?php echo htmlspecialchars($_SESSION['username']); ?>
                 </a>
                 <?php else: ?>
@@ -51,7 +69,6 @@ $result = $conn->query($sql);
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Range</th>
                 <th>Description</th>
@@ -67,20 +84,19 @@ $result = $conn->query($sql);
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['id']); ?></td>
                         <td><?php echo htmlspecialchars($row['name']); ?></td>
-                        <td><?php echo htmlspecialchars($row['range_id']); ?></td>
+                        <td><?php echo htmlspecialchars($row['range']); ?></td>
                         <td><?php echo htmlspecialchars($row['description']); ?></td>
-                        <td><?php echo htmlspecialchars($row['level_id']); ?></td>
-                        <td><?php echo htmlspecialchars($row['casting_time_id']); ?></td>
-                        <td><?php echo htmlspecialchars($row['component_id']); ?></td>
-                        <td><?php echo htmlspecialchars($row['duration_id']); ?></td>
-                        <td><?php echo htmlspecialchars($row['source_id']); ?></td>
-                        <td><?php echo htmlspecialchars($row['spell_type_id']); ?></td>
+                        <td><?php echo htmlspecialchars($row['level']); ?></td>
+                        <td><?php echo htmlspecialchars($row['casting_time']); ?></td>
+                        <td><?php echo htmlspecialchars($row['components']); ?></td>
+                        <td><?php echo htmlspecialchars($row['duration']); ?></td>
+                        <td><?php echo htmlspecialchars($row['source']); ?></td>
+                        <td><?php echo htmlspecialchars($row['spell_type']); ?></td>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
-                <tr><td colspan="10">No spells found</td></tr>
+                <tr><td colspan="9">No spells found</td></tr>
             <?php endif; ?>
         </tbody>
     </table>
