@@ -4,22 +4,22 @@ include '../connect.php';
 
 $sql = "SELECT 
             spells.name, 
-            spell_range.description AS range, 
+            spell_range.description AS spell_range_desc, 
             spells.description, 
-            spell_level.level AS level, 
-            casting_times.description AS casting_time, 
-            components.description AS components, 
-            durations.description AS duration, 
-            sources.name AS source, 
-            spell_types.description AS spell_type 
+            spell_level.level AS spell_level, 
+            casting_times.description AS casting_time_desc, 
+            components.description AS components_desc, 
+            durations.description AS duration_desc, 
+            sources.name AS source_name, 
+            spell_types.description AS spell_type_desc 
         FROM spells 
-        INNER JOIN spell_range ON spells.range_id = spell_range.id 
-        INNER JOIN spell_level ON spells.level_id = spell_level.id 
-        INNER JOIN casting_times ON spells.casting_time_id = casting_times.id 
-        INNER JOIN components ON spells.component_id = components.id 
-        INNER JOIN durations ON spells.duration_id = durations.id 
-        INNER JOIN sources ON spells.source_id = sources.id 
-        INNER JOIN spell_types ON spells.spell_type_id = spell_types.id";
+        LEFT JOIN spell_range ON spells.range_id = spell_range.id 
+        LEFT JOIN spell_level ON spells.level_id = spell_level.id 
+        LEFT JOIN casting_times ON spells.casting_time_id = casting_times.id 
+        LEFT JOIN components ON spells.component_id = components.id 
+        LEFT JOIN durations ON spells.duration_id = durations.id 
+        LEFT JOIN sources ON spells.source_id = sources.id 
+        LEFT JOIN spell_types ON spells.spell_type_id = spell_types.id";
 
 $result = $conn->query($sql);
 ?>
@@ -84,15 +84,13 @@ $result = $conn->query($sql);
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['name']); ?></td>
-                        <td><?php echo htmlspecialchars($row['range']); ?></td>
-                        <td><?php echo htmlspecialchars($row['description']); ?></td>
-                        <td><?php echo htmlspecialchars($row['level']); ?></td>
-                        <td><?php echo htmlspecialchars($row['casting_time']); ?></td>
-                        <td><?php echo htmlspecialchars($row['components']); ?></td>
-                        <td><?php echo htmlspecialchars($row['duration']); ?></td>
-                        <td><?php echo htmlspecialchars($row['source']); ?></td>
-                        <td><?php echo htmlspecialchars($row['spell_type']); ?></td>
+                    <td><?php echo htmlspecialchars($row['spell_range_desc']); ?></td>
+                    <td><?php echo htmlspecialchars($row['spell_level']); ?></td>
+                    <td><?php echo htmlspecialchars($row['casting_time_desc']); ?></td>
+                    <td><?php echo htmlspecialchars($row['components_desc']); ?></td>
+                    <td><?php echo htmlspecialchars($row['duration_desc']); ?></td>
+                    <td><?php echo htmlspecialchars($row['source_name']); ?></td>
+                    <td><?php echo htmlspecialchars($row['spell_type_desc']); ?></td>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
