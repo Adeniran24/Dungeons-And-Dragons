@@ -13,9 +13,9 @@ $sql = "SELECT
             `spell_level`.`level` AS `spell_level`, 
             `casting_times`.`time` AS `casting_time_desc`,
             `components`.`component` AS `components_desc`, 
-            `durations`.`description` AS `duration_desc`, 
-            `sources`.`name` AS `source_name`, 
-            `spell_types`.`description` AS `spell_type_desc` 
+            `durations`.`duration` AS `duration_desc`, 
+            `sources`.`source_name` AS `source_name`, 
+            `spell_types`.`spell_type_name` AS `spell_type_desc` 
         FROM `spells` 
         LEFT JOIN `spell_range` ON `spells`.`range_id` = `spell_range`.`id` 
         LEFT JOIN `spell_level` ON `spells`.`level_id` = `spell_level`.`id` 
