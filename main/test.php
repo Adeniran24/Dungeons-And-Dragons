@@ -12,7 +12,7 @@ $sql = "SELECT
             `spells`.`description`, 
             `spell_level`.`level` AS `spell_level`, 
             `casting_times`.`time` AS `casting_time_desc`,
-            `components`.`description` AS `components_desc`, 
+            `components`.`component` AS `components_desc`, 
             `durations`.`description` AS `duration_desc`, 
             `sources`.`name` AS `source_name`, 
             `spell_types`.`description` AS `spell_type_desc` 
