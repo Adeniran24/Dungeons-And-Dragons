@@ -7,24 +7,24 @@ include '../session_token.php';
 include '../connect.php';
 
 $sql = "SELECT 
-            spells.name, 
-            spell_range.range_description AS spell_range_desc
-            spells.description, 
-            spell_level.level AS spell_level, 
-            casting_times.description AS casting_time_desc, 
-            components.description AS components_desc, 
-            durations.description AS duration_desc, 
-            sources.name AS source_name, 
-            spell_types.description AS spell_type_desc 
-        FROM spells 
-        LEFT JOIN spell_range ON spells.range_id = spell_range.id 
-        LEFT JOIN spell_level ON spells.level_id = spell_level.id 
-        LEFT JOIN casting_times ON spells.casting_time_id = casting_times.id 
-        LEFT JOIN components ON spells.component_id = components.id 
-        LEFT JOIN durations ON spells.duration_id = durations.id 
-        LEFT JOIN sources ON spells.source_id = sources.id 
-        LEFT JOIN spell_types ON spells.spell_type_id = spell_types.id";
-
+            `spells`.`name`, 
+            `spell_range`.`range_description` AS `spell_range_desc`, 
+            `spells`.`description`, 
+            `spell_level`.`level` AS `spell_level`, 
+            `casting_times`.`description` AS `casting_time_desc`, 
+            `components`.`description` AS `components_desc`, 
+            `durations`.`description` AS `duration_desc`, 
+            `sources`.`name` AS `source_name`, 
+            `spell_types`.`description` AS `spell_type_desc` 
+        FROM `spells` 
+        LEFT JOIN `spell_range` ON `spells`.`range_id` = `spell_range`.`id` 
+        LEFT JOIN `spell_level` ON `spells`.`level_id` = `spell_level`.`id` 
+        LEFT JOIN `casting_times` ON `spells`.`casting_time_id` = `casting_times`.`id` 
+        LEFT JOIN `components` ON `spells`.`component_id` = `components`.`id` 
+        LEFT JOIN `durations` ON `spells`.`duration_id` = `durations`.`id` 
+        LEFT JOIN `sources` ON `spells`.`source_id` = `sources`.`id` 
+        LEFT JOIN `spell_types` ON `spells`.`spell_type_id` = `spell_types`.`id`";
+        
 $result = $conn->query($sql);
 ?>
 
