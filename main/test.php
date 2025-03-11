@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include '../session_token.php';
 include '../connect.php';
 
@@ -53,7 +57,7 @@ $result = $conn->query($sql);
             <form class="d-flex">
                 <?php if ($is_logged_in): ?>
                 <a id="Logged" href="../profile/profil.php">
-                    <img class="profKep" id="profkep" src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? '../defaults/profile_picture.jpg']); ?>" alt="Profile Image">
+                    <img class="profKep" id="profkep" src="<?php echo htmlspecialchars($_SESSION['profile_picture'] ?? '../defaults/profile_picture.jpg'); ?>" alt="Profile Image">
                     <?php echo htmlspecialchars($_SESSION['username']); ?>
                 </a>
                 <?php else: ?>
@@ -84,13 +88,15 @@ $result = $conn->query($sql);
             <?php if ($result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
-                    <td><?php echo htmlspecialchars($row['spell_range_desc']); ?></td>
-                    <td><?php echo htmlspecialchars($row['spell_level']); ?></td>
-                    <td><?php echo htmlspecialchars($row['casting_time_desc']); ?></td>
-                    <td><?php echo htmlspecialchars($row['components_desc']); ?></td>
-                    <td><?php echo htmlspecialchars($row['duration_desc']); ?></td>
-                    <td><?php echo htmlspecialchars($row['source_name']); ?></td>
-                    <td><?php echo htmlspecialchars($row['spell_type_desc']); ?></td>
+                        <td><?php echo htmlspecialchars($row['name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['spell_range_desc']); ?></td>
+                        <td><?php echo htmlspecialchars($row['description']); ?></td>
+                        <td><?php echo htmlspecialchars($row['spell_level']); ?></td>
+                        <td><?php echo htmlspecialchars($row['casting_time_desc']); ?></td>
+                        <td><?php echo htmlspecialchars($row['components_desc']); ?></td>
+                        <td><?php echo htmlspecialchars($row['duration_desc']); ?></td>
+                        <td><?php echo htmlspecialchars($row['source_name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['spell_type_desc']); ?></td>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
