@@ -3,19 +3,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageInput = document.getElementById("message-input");
     const sendBtn = document.getElementById("send-btn");
     const roomId = document.getElementById("room_id").value;
+    let lastTimestamp = 0;  // Track last message timestamp
 
     function fetchMessages() {
-        fetch(`get_room_messages.php?room_id=${roomId}`)
+        fetch(`get_room_messages.php?room_id=${roomId}&last_timestamp=${lastTimestamp}`)
             .then(response => response.json())
             .then(messages => {
-                chatBox.innerHTML = "";
-                messages.forEach(msg => {
-                    const p = document.createElement("p");
-                    p.textContent = `${msg.username}: ${msg.message}`;
-                    chatBox.appendChild(p);
-                });
-                chatBox.scrollTop = chatBox.scrollHeight;
-            });
+                if (messages.length > 0) {
+                    messages.forEach(msg => {
+                        const p = document.createElement("p");
+                        p.textContent = `${msg.username}: ${msg.message}`;
+                        chatBox.appendChild(p);
+                    });
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    lastTimestamp = messages[messages.length - 1].timestamp;  // Update last timestamp
+                }
+                setTimeout(fetchMessages, 3000); // Long polling: Fetch again only after a response
+            })
+            .catch(() => setTimeout(fetchMessages, 5000)); // Retry with delay if an error occurs
     }
 
     sendBtn.addEventListener("click", function () {
@@ -26,12 +31,18 @@ document.addEventListener("DOMContentLoaded", function () {
             method: "POST",
             body: new URLSearchParams({ room_id: roomId, message }),
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
-        }).then(() => {
-            messageInput.value = "";
-            fetchMessages();
+        }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const p = document.createElement("p");
+                p.textContent = `${data.username}: ${data.message}`;
+                chatBox.appendChild(p);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                messageInput.value = "";
+                lastTimestamp = data.timestamp;
+            }
         });
     });
 
-    setInterval(fetchMessages, 2000);
     fetchMessages();
 });
