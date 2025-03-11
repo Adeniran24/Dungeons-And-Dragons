@@ -8,7 +8,7 @@ include '../connect.php';
 
 $sql = "SELECT 
             spells.name, 
-            spell_range.description AS spell_range_desc, 
+            spell_range.range_description AS spell_range_desc
             spells.description, 
             spell_level.level AS spell_level, 
             casting_times.description AS casting_time_desc, 
