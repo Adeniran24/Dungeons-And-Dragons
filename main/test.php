@@ -1,6 +1,6 @@
 <?php
 include '../session_token.php';
-include '../db_connection.php'; // Include database connection
+include '../connect.php';
 
 $sql = "SELECT 
             spells.name, 
