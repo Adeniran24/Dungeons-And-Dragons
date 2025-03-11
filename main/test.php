@@ -1,6 +1,6 @@
 <?php
 include '../session_token.php';
-include '../db_connection.php'; // Include database connection
+include '../connect.php';
 
 $sql = "SELECT id, name, range_id, description, level_id, casting_time_id, component_id, duration_id, source_id, spell_type_id FROM spells";
 $result = $conn->query($sql);
