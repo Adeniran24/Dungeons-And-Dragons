@@ -83,13 +83,13 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../character.php">Characters</a>
+                <a class="nav-link active" aria-current="page" href="../character/character.php">Characters</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../wiki.php">Wiki</a>
+                <a class="nav-link active" aria-current="page" href="../wiki/wiki.php">Wiki</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../dmTools.php">DM Tools</a>
+                <a class="nav-link active" aria-current="page" href="../dmtool/dmTools.php">DM Tools</a>
               </li>
               
             </ul>
@@ -178,6 +178,10 @@
             <?php endforeach; ?>
         </ul>
         <?php endif; ?>
+
+        
+        
+        <a href="../social/friends.php" style="text-decoration:none;"><h3 style="margin-top: 3%;">Private Chats</h3></a>
     
     
         <h3>Friend Requests</h3>
@@ -250,7 +254,6 @@
             position: relative;
         }
     </style>
-    
 </div>
 
 
@@ -262,7 +265,7 @@
         <div>
             <h3>Your Characters</h3>
             <?php if (empty($characters)): ?>
-                <p>You have no characters yet. <a href="../character/generate_character/generate_character.php">Create one now</a>.</p>
+                <p>You have no characters yet. <a href="../character/generate_character/index.php">Create one now</a>.</p>
             <?php else: ?>
                 <ul>
                     <?php foreach ($characters as $character): ?>

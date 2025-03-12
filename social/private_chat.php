@@ -1,5 +1,63 @@
 <?php
+include '../connect.php';
 include '../session_token.php';
+
+if (!isset($_GET['friend_id'])) {
+    die("Friend not selected.");
+}
+
+$friend_id = intval($_GET['friend_id']);
+$friend_query = $conn->query("SELECT username FROM users WHERE id = $friend_id");
+
+if ($friend_query->num_rows == 0) {
+    die("User not found.");
+}
+
+$friend = $friend_query->fetch_assoc();
+
+
+
+// Check if the user is logged in by verifying session variables
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
+    // If the user is not logged in, redirect to login page
+    header("Location: ../main/login.php");
+    exit();
+} else {
+    // The user is logged in, you can use the session variables
+    $is_logged_in = true;
+    $user_id = $_SESSION['user_id'];
+    $username = $_SESSION['username'];
+
+    // Optional: verify token if using cookie for added security
+    if (isset($_COOKIE['auth_token']) && $_COOKIE['auth_token'] !== $_SESSION['token']) {
+        // Invalidate session if the token does not match
+        session_unset();
+        session_destroy();
+        header("Location: ../main/login.php");
+        exit();
+    }
+}
+
+// Now you can use $user_id, $username, and other session variables
+
+
+$result = $conn->query("SELECT u.id, u.username FROM users u 
+                        JOIN friends f ON ((f.user_id = $user_id AND f.friend_id = u.id) 
+                        OR (f.friend_id = $user_id AND f.user_id = u.id)) 
+                        WHERE f.status = 'Friend'");
+
+
+$friends = [];
+if ($is_logged_in) {
+    $stmt = $conn->prepare("SELECT u.id, u.username, u.profile_picture, u.status    FROM friends f    JOIN users u ON f.friend_id = u.id    WHERE f.user_id = ? AND f.status = 'Friend';");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $friends[] = $row; // Save each friend's data
+    }
+    $stmt->close();
+}
 ?>
 
 
@@ -11,13 +69,14 @@ include '../session_token.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D&D Website</title>
-    <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
+    <link rel="stylesheet" href="../main/index.css">
+    <script src="../main/index.js"></script>
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <title>Chat with <?= htmlspecialchars($friend['username']) ?></title>
+    <script src="private_chat.js" defer></script>
 </head>
 <body>
 
@@ -63,24 +122,25 @@ include '../session_token.php';
 </nav>
 
 
+    <div class="container" style="margin-top: 5%;">
+        <div class="row" style="background-color: gray;">
+            <h1>Chat with <?= htmlspecialchars($friend['username']) ?></h1>
+            <div id="chat-box"></div>
+            <input type="hidden" id="friend_id" value="<?= $friend_id ?>">
+            <input type="text" id="message-input" style="width: 50%;margin-left:25%;margin-right:25%; background-color: wheat;">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
+    
 
     <footer class="footer mt-auto py-3 ">
       <div class="container">
         <span class="">Đ&Đ Ultimate Tools</span>
       </div>
     </footer>
+</body>
+</html>
 </body>
 </html>

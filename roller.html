@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .hover-result {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .hover-result .tooltip {
+            visibility: hidden;
+            background-color: black;
+            color: #fff;
+            text-align: left;
+            border-radius: 5px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the result */
+            left: 50%;
+            margin-left: -150px; /* Adjust to make the tooltip wider */
+            width: 300px; /* Set width to make the tooltip longer */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .hover-result:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dice Roller</h1>
+    <input type="text" id="commandInput" placeholder="Enter dice roll (e.g. 1d6+4)">
+    <button onclick="rollDice()">Roll</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function rollDice() {
+            let command = document.getElementById("commandInput").value;
+            let result = 0;
+            let breakdown = []; // Store breakdown of dice rolls
+            let sequence = []; // Store the sequence of dice rolls
+            
+            let rolls = command.split("+");
+            for (let i = 0; i < rolls.length; i++) {
+                if (rolls[i].includes("d")) {
+                    let roll = rolls[i].split("d");
+                    let numDice = parseInt(roll[0]) || 1; // Default to 1 if not provided
+                    let numSides = parseInt(roll[1]);
+                    let rollTotal = 0;
+                    let rollDetails = [];
+                    for (let j = 0; j < numDice; j++) {
+                        let dieRoll = Math.floor(Math.random() * numSides) + 1;
+                        rollTotal += dieRoll;
+                        rollDetails.push(dieRoll);
+                    }
+                    breakdown.push(`${numDice}d${numSides}(${rollDetails.join(", ")})`);
+                    sequence.push(rollTotal); // Store the sum of this dice roll group
+                    result += rollTotal; // Add total roll for this group
+                } else {
+                    let number = parseInt(rolls[i]);
+                    result += number;
+                    breakdown.push(`${number}`);
+                    sequence.push(number); // Store the number to sequence
+                }
+            }
+
+            // Create a tooltip with the breakdown and total sum
+            let breakdownString = breakdown.join(" + ") + " = " + result;
+            let sequenceString = sequence.join(" + ") + " = " + result;
+
+            // Set the result with the hover functionality
+            document.getElementById("result").innerHTML = `
+                <span class="hover-result">
+                    ${result}
+                    <span class="tooltip">${sequenceString}</span>
+                </span>`;
+        }
+        //
+    </script>
+
+</body>
+</html>
