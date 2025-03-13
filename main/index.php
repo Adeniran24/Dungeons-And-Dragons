@@ -114,6 +114,7 @@ h1, h2, h3, h4, h5 {
 .navbar {
     background: linear-gradient(to right, #3e2723, #5d4037);
     border-bottom: 3px solid #8d6e63;
+    margin-bottom: 20px;
 }
 
 .navbar-brand {
