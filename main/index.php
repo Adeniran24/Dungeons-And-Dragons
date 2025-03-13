@@ -22,7 +22,7 @@ include '../session_token.php';
 <body>
 
 
-
+<header>
 <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
         <a class="navbar-brand" href="index.php" style="color: rgb(255, 0, 0); background-color: black; padding: 10px 20px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold;">
@@ -64,8 +64,8 @@ include '../session_token.php';
     </div>
 </nav>
 
-
-    <main>
+                </header>
+    <main>      
         <h1>Welcome to the D&D Website</h1>
         <p>Your one-stop destination for all things Dungeons & Dragons.</p>
     </main>
@@ -88,9 +88,12 @@ include '../session_token.php';
 
 <style>
 
+main {
+    background: url('https://th.bing.com/th/id/R.3450efdf110514ba56e0b1d0d9bef123?rik=HYX0OvdGxWjl7Q&pid=ImgRaw&r=0 ') no-repeat;
+}
     /* General Styles */
 body {
-    background: url('https://th.bing.com/th/id/R.3450efdf110514ba56e0b1d0d9bef123?rik=HYX0OvdGxWjl7Q&pid=ImgRaw&r=0 ') no-repeat;
+    
     
     /*Background no repeat*/
     background-size: cover;
@@ -114,7 +117,7 @@ h1, h2, h3, h4, h5 {
 .navbar {
     background: linear-gradient(to right, #3e2723, #5d4037);
     border-bottom: 3px solid #8d6e63;
-    margin-bottom: 20px;
+    
 }
 
 .navbar-brand {
