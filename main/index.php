@@ -89,21 +89,20 @@ include '../session_token.php';
 <style>
 
 main {
-    background: url('https://th.bing.com/th/id/R.3450efdf110514ba56e0b1d0d9bef123?rik=HYX0OvdGxWjl7Q&pid=ImgRaw&r=0 ') no-repeat;
+    
 }
     /* General Styles */
 body {
     
-    
+    background: url('https://th.bing.com/th/id/R.3450efdf110514ba56e0b1d0d9bef123?rik=HYX0OvdGxWjl7Q&pid=ImgRaw&r=0 ') no-repeat;
     /*Background no repeat*/
     background-size: cover;
-
-    background-attachment: fixed;
-    background-position: center;
+    /*background-attachment: fixed;*/
+    background-position: (center, -113px); 
     color: #ffcc80;
     /*No Repeat*/
     font-family: 'Cinzel', serif;
-    margin: 0;
+    margin-top: 0;
     padding: 0;
 }
 
